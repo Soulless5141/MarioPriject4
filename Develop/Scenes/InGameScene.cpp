@@ -23,7 +23,7 @@ InGameScene::~InGameScene()
 void InGameScene::Initialize()
 {
 	// スクリーンオフセットを設定
-	screen_offset.y = D_OBJECT_SIZE * 3.0f;
+	camera = Camera::Get();
 
 	//配列初期化
 	std::vector<int>initi_back(15, back_ground_stage);
@@ -48,6 +48,7 @@ void InGameScene::Initialize()
 eSceneType InGameScene::Update(const float& delta_second)
 {
 	InputManager* input = InputManager::GetInstance();
+	camera->CameraUpdate(player->GetLocation());
 
 	if (input->GetKeyDown(KEY_INPUT_P) || input->GetButtonDown(XINPUT_BUTTON_START))
 	{
@@ -68,12 +69,12 @@ void InGameScene::Draw()
 {
 	// 背景画像の描画
 	Vector2D generate_location;
-	for (int i = 0; i < BLOCK_MAX_Y; i++)
+	for (int i = 0; i < haikei_block.size(); i++)
 	{
-		for (int j = 0; j < BLOCK_MAX_X; j++)
+		for (int j = 0; j < haikei_block[i].size(); j++)
 		{
-			generate_location = (Vector2D((float)j, (float)i) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-			DrawRotaGraph(generate_location.x - player->scroll, generate_location.y, 1.0, 0.0, haikei_block[j][i], TRUE);
+			generate_location = camera->ConvertLcoationToScreen(Vector2D(i * OBJECT_SIZE, j * OBJECT_SIZE) + screen_offset);
+			DrawRotaGraph(generate_location.x, generate_location.y, 1.0, 0.0, haikei_block[i][j], TRUE);
 		}
 	}
 
@@ -198,7 +199,6 @@ void InGameScene::LoadStageMapCSV()
 			}
 
 			// 生成(仮)
-			DrawRotaGraph(generate_location.x - player->scroll, generate_location.y, 1.0, 0.0, ground_stage, TRUE);
 			x++;
 		}
 

@@ -46,7 +46,6 @@ private:
 	float animation_time;					// アニメーション時間
 	int animation_count;					// アニメーション添字
 	float move_time;
-	bool scroll_end;
 	const int animation_num[4] = { 1,2,3,2 };
 	int power_up_time;						// パワーアップ時間
 
@@ -60,7 +59,6 @@ public:
 
 public:
 	int sound;
-	float scroll;
 	class EnemyBase* enemy;					// エネミーの状態確認
 
 public:

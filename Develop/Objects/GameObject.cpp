@@ -14,7 +14,7 @@ GameObject::~GameObject()
 
 void GameObject::Initialize()
 {
-
+	
 }
 
 void GameObject::Update(float delta_second)
@@ -24,8 +24,9 @@ void GameObject::Update(float delta_second)
 
 void GameObject::Draw(const Vector2D& screen_offset) const
 {
+	Camera* camera = Camera::Get();
 	// オフセット値を基に画像の描画を行う
-	Vector2D graph_location = this->location + screen_offset;
+	Vector2D graph_location = camera->ConvertLcoationToScreen(this->location + screen_offset);
 	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image, TRUE, reverse);
 }
 

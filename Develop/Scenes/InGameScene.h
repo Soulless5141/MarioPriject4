@@ -1,6 +1,7 @@
 #pragma once
 #include"SceneBase.h"
 #include"../Objects/Character/Player/Player.h"
+#include "../Utility/Camera.h"
 
 #define BLOCK_MAX_X (211)
 #define BLOCK_MAX_Y (15)
@@ -9,6 +10,7 @@ class InGameScene : public SceneBase
 {
 private:
 	class Player* player;		// ƒvƒŒƒCƒ„[î•ñ
+	Camera* camera;
 	int back_ground_stage;		// ”wŒi‰æ‘œ
 	int ground_stage;		// ”wŒi‰æ‘œ
 	int back_bgm;		// ”wŒi‰æ‘œ

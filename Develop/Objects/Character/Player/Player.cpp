@@ -23,9 +23,7 @@ Player::Player() :
 	animation_count(0),
 	power_up_time(0),
 	enemy(NULL),
-	scroll(0),
-	move_time(0),
-	scroll_end(false)
+	move_time(0)
 {
 
 }
@@ -62,7 +60,6 @@ void Player::Initialize()
 	player_state = ePlayerState::eIdle;
 	g_velocity = 0;
 	velocity = Vector2D(0.0);
-	scroll = 0;
 
 	// 可動性の設定
 	is_mobility = eMobilityType::Movable;
@@ -150,22 +147,9 @@ void Player::Movement(float delta_second)
 	//移動の実行
 	location += velocity * D_PLAYER_SPEED * delta_second;
 
-	//スクロール制御
-	if (GetLocation().x >= 320 && velocity.x != 0)
-	{
-		if (scroll <= scroll + velocity.x * D_PLAYER_SPEED * delta_second)
-		{
-			scroll += velocity.x * D_PLAYER_SPEED * delta_second;
-		}
-		
-	}
 
-	//スクロール限界値
-	if (scroll >= 6112)
-	{
-		scroll = 6112;
-		scroll_end = true;
-	}
+
+
 
 	//400.0f地点を地面と仮定
 	if (304.0f <= location.y)
@@ -179,22 +163,6 @@ void Player::Movement(float delta_second)
 		location.x = 0.0f;
 	}
 
-
-	// scroll制御
-	if (scroll_end == false)
-	{
-		if (location.x > 320)
-		{
-			location.x = 320;
-		}
-	}
-	else
-	{
-		if (location.x > 640)
-		{
-			location.x = 640;
-		}
-	}
 
 }
 
