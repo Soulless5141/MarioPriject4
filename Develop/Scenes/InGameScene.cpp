@@ -26,8 +26,12 @@ void InGameScene::Initialize()
 	camera = Camera::Get();
 
 	//配列初期化
-	std::vector<int>initi_back(15, back_ground_stage);
-	haikei_block = std::vector<std::vector<int>>(211, initi_back);
+	std::vector<int>initi_back(BLOCK_MAX_Y, back_ground_stage);
+	haikei_block = std::vector<std::vector<int>>(BLOCK_MAX_X, initi_back);
+	std::vector<int>initi_ground(BLOCK_MAX_Y, ground_stage);
+	block = std::vector<std::vector<int>>(BLOCK_MAX_X, initi_ground);
+	std::vector<GameObject*>initi_object(BLOCK_MAX_Y, nullptr);
+	object = std::vector<std::vector<GameObject*>>(BLOCK_MAX_X, initi_object);
 
 	// 背景画像の読み込み
 	ResourceManager* rm = ResourceManager::GetInstance();
@@ -106,7 +110,7 @@ const eSceneType InGameScene::GetNowSceneType() const
 /// </summary>
 /// <param name="target">1つ目のゲームオブジェクト</param>
 /// <param name="partner">2つ目のゲームオブジェクト</param>
-void InGameScene::CheckCollision(GameObjectManager* target, GameObjectManager* partner)
+void InGameScene::CheckCollision(GameObject* target, GameObject* partner)
 {
 	
 }
@@ -153,52 +157,56 @@ void InGameScene::LoadStageMapCSV()
 			{
 			// 床
 			case 'f':
-				ground_stage = rm->GetImages("Resource/Images/Block/floor.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'f';
 				break;
 			// 階段ブロック
 			case 'B':
-				ground_stage = rm->GetImages("Resource/Images/Block/kai_block.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'B';
 				break;
 			// ブロック
 			case 'b':
-				ground_stage = rm->GetImages("Resource/Images/Block/block.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'b';
 				break;
 			// ？ブロック
 			case 'h':
-				ground_stage = rm->GetImages("Resource/Images/Block/hatena.png", 4, 4, 1, 32, 32)[0];
+				ground_stage = 'h';
 				break;
 			//土管
 			case 'd':
-				ground_stage = rm->GetImages("Resource/Images/dokan_left_up.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'd';
 				break;
 			case 'o':
-				ground_stage = rm->GetImages("Resource/Images/dokan_right_up.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'o';
 				break;
 			case 'A':
-				ground_stage = rm->GetImages("Resource/Images/dokan_left_down.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'A';
 				break;
 			case 'K':
-				ground_stage = rm->GetImages("Resource/Images/dokan_right_down.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'K';
 				break;
 			// クリボー
 			case 'k':
-				ground_stage = rm->GetImages("Resource/Images/Enemy/kuribo.png", 3, 3, 1, 32, 32)[0];
+				ground_stage = 'k';
 				break;
 			// ゴール
 			case 'P':
-				ground_stage = rm->GetImages("Resource/Images/pole.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'P';
 				break;
 			case 'G':
-				ground_stage = rm->GetImages("Resource/Images/pole_down.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'G';
 				break;
 			case 'p':
-				ground_stage = rm->GetImages("Resource/Images/pole_down.png", 1, 1, 1, 32, 32)[0];
+				ground_stage = 'p';
+				break;
+			//ノコノコ
+			case 'n':
+				ground_stage = 'n';
 				break;
 			default:
 				break;
 			}
-
-			// 生成(仮)
+			// 格納
+			block[x][y] = ground_stage;
 			x++;
 		}
 
@@ -340,4 +348,73 @@ void InGameScene::LoadBackStageMapCSV()
 	}
 	// 開いたファイルを閉じる
 	fclose(fp);
+}
+
+void InGameScene::CreateStage()
+{
+	for (int x = 0; x < block.size(); x++)
+	{
+		for (int y = 0; y < block[x].size(); y++)
+		{
+			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (player->GetLocation().x + (D_WIN_MAX_X / 2)))
+			{
+				Vector2D genelate_location = Vector2D(((float)x, (float)y)) * OBJECT_SIZE;
+				switch (block[x][y])
+				{
+					// 床
+				case 'f':
+					ground_stage = 'f';
+					break;
+					// 階段ブロック
+				case 'B':
+					ground_stage = 'B';
+					break;
+					// ブロック
+				case 'b':
+					ground_stage = 'b';
+					break;
+					// ？ブロック
+				case 'h':
+					ground_stage = 'h';
+					break;
+					//土管
+				case 'd':
+					ground_stage = 'd';
+					break;
+				case 'o':
+					ground_stage = 'o';
+					break;
+				case 'A':
+					ground_stage = 'A';
+					break;
+				case 'K':
+					ground_stage = 'K';
+					break;
+					// クリボー
+				case 'k':
+					ground_stage = 'k';
+					break;
+					// ゴール
+				case 'P':
+					ground_stage = 'P';
+					break;
+				case 'G':
+					ground_stage = 'G';
+					break;
+				case 'p':
+					ground_stage = 'p';
+					break;
+					//ノコノコ
+				case 'n':
+					ground_stage = 'n';
+					break;
+				default:
+					break;
+				}
+				// 格納
+				block[x][y] = ground_stage;
+				
+			}
+		}
+	}
 }
