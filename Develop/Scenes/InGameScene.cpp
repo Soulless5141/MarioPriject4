@@ -48,7 +48,7 @@ void InGameScene::Initialize()
 eSceneType InGameScene::Update(const float& delta_second)
 {
 	InputManager* input = InputManager::GetInstance();
-	camera->CameraUpdate(player->GetLocation());
+	camera->CameraUpdate(player->GetLocation());		//プレイヤーの座標を基にカメラを更新
 
 	if (input->GetKeyDown(KEY_INPUT_P) || input->GetButtonDown(XINPUT_BUTTON_START))
 	{

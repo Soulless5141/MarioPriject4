@@ -135,11 +135,10 @@ void Player::Movement(float delta_second)
 	//重力速度の計算
 	g_velocity = D_GRAVITY / 444.0f;
 
-	move_time += delta_second;
+	/*move_time += delta_second;
 	if (move_time >= (1.0f / 30.0f))
-	{
-		velocity.y += g_velocity;
-	}
+	{*/
+	velocity.y += g_velocity;
 
 	//状態別の更新処理を行う
 	state->Update();
@@ -147,14 +146,10 @@ void Player::Movement(float delta_second)
 	//移動の実行
 	location += velocity * D_PLAYER_SPEED * delta_second;
 
-
-
-
-
-	//400.0f地点を地面と仮定
-	if (304.0f <= location.y)
+	//384.0f地点を地面と仮定
+	if (384.0f <= location.y)
 	{
-		location.y = 304.0f;
+		location.y = 384.0f;
 		g_velocity = 0.0f;
 		velocity.y = 0.0f;
 	}
@@ -162,8 +157,6 @@ void Player::Movement(float delta_second)
 	{
 		location.x = 0.0f;
 	}
-
-
 }
 
 /// <summary>

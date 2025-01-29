@@ -12,8 +12,8 @@
 class Camera :public Singleton<Camera>
 {
 private:
-	Vector2D camera_location;
-	Vector2D screen_location_origin;
+	Vector2D camera_location;			//
+	Vector2D screen_location_origin;	//
 	Vector2D screen_location;
 
 public:
