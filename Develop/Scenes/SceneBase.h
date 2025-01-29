@@ -120,7 +120,7 @@ public:
 	/// </summary>
 	/// <param name="target">1つ目のゲームオブジェクト</param>
 	/// <param name="partner">2つ目のゲームオブジェクト</param>
-	virtual void CheckCollision(GameObjectManager* target, GameObjectManager* partner)
+	virtual void CheckCollision(GameObject* target, GameObject* partner)
 	{
 	}
 

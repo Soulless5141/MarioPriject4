@@ -106,54 +106,6 @@ void GameObjectManager::CheckCollision(GameObject* target, GameObject* partner)
 	}
 }
 
- //<summary>
- //描画処理
- //</summary>
- //<param name="screen_offset">オフセット値</param>
-void GameObjectManager::Draw(const Vector2D& screen_offset) const
-{
-	// オフセット値を基に画像の描画を行う
-	Vector2D graph_location = this->location + screen_offset;
-	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image, TRUE);
-
-		// オブジェクトリスト内のオブジェクトを描画する
-		for (GameObject* obj : game_objects_list)
-		{
-			obj->Draw(screen_offset);
-		}
-	
-}
-
-// 更新処理
-void GameObjectManager::Update(float screen_offset)
-{
-	// リスト内のオブジェクトを更新する
-	for (GameObject* obj : game_objects_list)
-	{
-		obj->Update(screen_offset);
-	}
-
-	// 当たり判定確認処理
-	for (int i = 0; i < game_objects_list.size(); i++)
-	{
-		if (eMobilityType::Stationary == game_objects_list[i]->GetMobility())
-		{
-			continue;
-		}
-
-		for (int j = 0; j < game_objects_list.size(); j++)
-		{
-			if (i == j)
-			{
-				continue;
-			}
-
-			CheckCollision(game_objects_list[i], game_objects_list[j]);
-		}
-	}
-}
-
-
 std::vector<GameObject*>GameObjectManager::GetObjectsList() const
 {
 	return game_objects_list;

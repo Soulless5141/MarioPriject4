@@ -30,7 +30,7 @@ void Block::Draw(const Vector2D& screen_offset) const
 	__super::Draw(screen_offset);
 }
 
-void Block::OnHitCollision(GameObjectManager* hit_object)
+void Block::OnHitCollision(GameObject* hit_object)
 {
 	// 当たった、オブジェクトが壁だったら
 	if (hit_object->GetCollision().object_type == eObjectType::eBlock)
