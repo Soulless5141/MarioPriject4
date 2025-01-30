@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Singleton.h"
 #include <map>
 #include <string>
 #include <vector>
@@ -7,16 +8,15 @@
 /// <summary>
 /// リソース管理クラス
 /// </summary>
-class ResourceManager
+class ResourceManager : public Singleton<ResourceManager>
 {
 private:
-	// 自クラスのポインタ（実体をアドレスの先で保有）
-	static ResourceManager* instance;
+
 
 	std::map<std::string, std::vector<int>> image_container;	// 画像コンテナ
 	std::map<std::string, int> sound_container;				// 音源コンテナ
 
-private:
+public:
 	// クラスの実体をメンバ関数内でしか生成できないようにする
 	ResourceManager() = default;
 
@@ -27,17 +27,6 @@ private:
 
 public:
 	~ResourceManager() = default;
-
-	/// <summary>
-	/// インスタンス取得処理
-	/// </summary>
-	/// <returns>インスタンスのポインタを返却する</returns>
-	static ResourceManager* GetInstance();
-
-	/// <summary>
-	/// インスタンス削除処理
-	/// </summary>
-	static void DeleteInstance();
 
 public:
 	/// <summary>

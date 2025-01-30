@@ -131,6 +131,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Block\Goal.cpp" />
+    <ClCompile Include="Objects\Block\Dokan_Left_Down.cpp" />
+    <ClCompile Include="Objects\Block\Dokan_Left_Up.cpp" />
+    <ClCompile Include="Objects\Block\Dokan_Right_Down.cpp" />
+    <ClCompile Include="Objects\Block\Dokan_Right_Up.cpp" />
     <ClCompile Include="Objects\Block\Block.cpp" />
     <ClCompile Include="Objects\Block\BlockBase.cpp" />
     <ClCompile Include="Objects\Block\Ground.cpp" />
@@ -156,6 +161,7 @@
     <ClCompile Include="Scenes\ResultScene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
     <ClCompile Include="Scenes\TitleScene.cpp" />
+    <ClCompile Include="Objects\Block\Stairs.cpp" />
     <ClCompile Include="Utility\Application.cpp" />
     <ClCompile Include="AppMain.cpp" />
     <ClCompile Include="Utility\Camera.cpp" />
@@ -165,6 +171,11 @@
     <ClCompile Include="Utility\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Block\Goal.h" />
+    <ClInclude Include="Objects\Block\Dokan_Left_Down.h" />
+    <ClInclude Include="Objects\Block\Dokan_Left_Up.h" />
+    <ClInclude Include="Objects\Block\Dokan_Right_Down.h" />
+    <ClInclude Include="Objects\Block\Dokan_Right_Up.h" />
     <ClInclude Include="Objects\Block\Block.h" />
     <ClInclude Include="Objects\Block\BlockBase.h" />
     <ClInclude Include="Objects\Block\Ground.h" />
@@ -193,6 +204,7 @@
     <ClInclude Include="Scenes\SceneBase.h" />
     <ClInclude Include="Scenes\SceneManager.h" />
     <ClInclude Include="Scenes\TitleScene.h" />
+    <ClInclude Include="Objects\Block\Stairs.h" />
     <ClInclude Include="Utility\Camera.h" />
     <ClInclude Include="Utility\Singleton.h" />
     <ClInclude Include="Utility\Application.h" />

@@ -3,9 +3,6 @@
 #include <vector>
 #include "DxLib.h"
 
-// 静的メンバ変数定義
-GameObjectManager* GameObjectManager::instance = nullptr;	// 自クラスのポインタ
-
 GameObjectManager::GameObjectManager() :
 	create_objects(),
 	destroy_objects(),
@@ -73,51 +70,7 @@ void GameObjectManager::CheckDestroyObject()
 	}
 }
 
-void GameObjectManager::CheckCollision(GameObject* target, GameObject* partner)
-{
-	// ヌルポチェック
-	if (target == nullptr || partner == nullptr)
-	{
-		return;
-	}
-
-	// 当たり判定情報を取得
-	Collision tc = target->GetCollision();
-	Collision pc = partner->GetCollision();
-
-	// 当たり判定が有効か確認する
-	if (tc.IsCheckHitTarget(pc.object_type) || pc.IsCheckHitTarget(tc.object_type))
-	{
-
-		// 線分の始点と終点を設定する
-		tc.point[0] += target->GetLocation() - 32;
-		tc.point[1] += target->GetLocation() + 32;
-		pc.point[0] += partner->GetLocation() - 32;
-		pc.point[1] += partner->GetLocation() + 32;
-
-		// カプセル同士の当たり判定
-		if (IsCheckCollision(tc, pc))
-		{
-			// 当たっていることを通知する
-			partner->OnHitCollision(target);
-			target->OnHitCollision(partner);
-
-		}
-	}
-}
-
 std::vector<GameObject*>GameObjectManager::GetObjectsList() const
 {
 	return game_objects_list;
-}
-
-GameObjectManager* GameObjectManager::GetInstance()
-{
-	// インスタンスが生成されていない場合、生成する
-	if (instance == nullptr)
-	{
-		instance = new GameObjectManager();
-	}
-
-	return instance;
 }

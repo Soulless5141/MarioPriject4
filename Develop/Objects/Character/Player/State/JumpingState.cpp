@@ -32,7 +32,7 @@ void JumpingState::Initialize()
 		this->player->velocity.y -= 12.0f; //ƒWƒƒƒ“ƒv—Í
 	}
 	
-	ResourceManager* rm = ResourceManager::GetInstance();
+	ResourceManager* rm = ResourceManager::Get();
 	this->player->sound = rm->GetSounds("Resource/Sounds/SE_SuperJump.wav");
 }
 
@@ -50,13 +50,13 @@ void JumpingState::Finalize()
 void JumpingState::Update()
 {
 	//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
-	InputManager* input = InputManager::GetInstance();
+	InputManager* input = InputManager::Get();
 
 	//’n–Ê‚ÉG‚ê‚½‚ç
 	if (player->velocity.y >= 0)
 	{
 		//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
-		InputManager* input = InputManager::GetInstance();
+		InputManager* input = InputManager::Get();
 
 		//’âŽ~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eIdle);

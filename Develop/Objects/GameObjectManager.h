@@ -19,8 +19,6 @@ private:
 	std::vector<GameObject*> destroy_objects;
 	std::vector<GameObject*> game_objects_list;
 
-	static GameObjectManager* instance;
-
 public:
 	GameObjectManager();
 	virtual ~GameObjectManager();
@@ -29,7 +27,7 @@ public:
 	void CheckCreateObject();
 	void CheckDestroyObject();
 	std::vector<GameObject*>GetObjectsList() const;
-	static GameObjectManager* GetInstance();
+
 
 	template<class T>
 	T* CreateGameObject(const Vector2D& generate_location)

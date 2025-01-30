@@ -2,6 +2,17 @@
 #include "../Utility/InputManager.h"
 #include "../Utility/ResourceManager.h"
 #include "../Objects/GameObjectManager.h"
+#include "../Objects/Character/Enemy/kuribo.h"
+#include "../Objects/Character/Enemy/Nokonoko.h"
+#include "../Objects/Block/Block.h"
+#include "../Objects/Block/Dokan_Left_Down.h"
+#include "../Objects/Block/Dokan_Right_Down.h"
+#include "../Objects/Block/Dokan_Left_Up.h"]
+#include "../Objects/Block/Dokan_Right_Up.h"
+#include "../Objects/Block/Goal.h"
+#include "../Objects/Block/Ground.h"
+#include "../Objects/Block/Hatena.h"
+#include "../Objects/Block/Stairs.h"
 #include "DxLib.h"
 #include <fstream>
 
@@ -34,8 +45,8 @@ void InGameScene::Initialize()
 	object = std::vector<std::vector<GameObject*>>(BLOCK_MAX_X, initi_object);
 
 	// 背景画像の読み込み
-	ResourceManager* rm = ResourceManager::GetInstance();
-	GameObjectManager* gm = GameObjectManager::GetInstance();
+	ResourceManager* rm = ResourceManager::Get();
+	GameObjectManager* gm = GameObjectManager::Get();
 
 	player = gm->CreateGameObject<Player>(Vector2D(100, 300));
 
@@ -51,7 +62,7 @@ void InGameScene::Initialize()
 
 eSceneType InGameScene::Update(const float& delta_second)
 {
-	InputManager* input = InputManager::GetInstance();
+	InputManager* input = InputManager::Get();
 	camera->CameraUpdate(player->GetLocation());		//プレイヤーの座標を基にカメラを更新
 
 	if (input->GetKeyDown(KEY_INPUT_P) || input->GetButtonDown(XINPUT_BUTTON_START))
@@ -112,7 +123,35 @@ const eSceneType InGameScene::GetNowSceneType() const
 /// <param name="partner">2つ目のゲームオブジェクト</param>
 void InGameScene::CheckCollision(GameObject* target, GameObject* partner)
 {
-	
+	// ヌルポチェック
+	if (target == nullptr || partner == nullptr)
+	{
+		return;
+	}
+
+	// 当たり判定情報を取得
+	Collision tc = target->GetCollision();
+	Collision pc = partner->GetCollision();
+
+	// 当たり判定が有効か確認する
+	if (tc.IsCheckHitTarget(pc.object_type) || pc.IsCheckHitTarget(tc.object_type))
+	{
+
+		// 線分の始点と終点を設定する
+		tc.point[0] += target->GetLocation() - 32;
+		tc.point[1] += target->GetLocation() + 32;
+		pc.point[0] += partner->GetLocation() - 32;
+		pc.point[1] += partner->GetLocation() + 32;
+
+		// カプセル同士の当たり判定
+		if (IsCheckCollision(tc, pc))
+		{
+			// 当たっていることを通知する
+			partner->OnHitCollision(target);
+			target->OnHitCollision(partner);
+
+		}
+	}
 }
 
 /// <summary>
@@ -123,7 +162,7 @@ void InGameScene::LoadStageMapCSV()
 	FILE* fp = NULL;
 	std::string file_name = "Resource/Map/Book.csv";
 
-	ResourceManager* rm = ResourceManager::GetInstance();
+	ResourceManager* rm = ResourceManager::Get();
 
 	// 指定されたファイルを開く
 	errno_t result = fopen_s(&fp, file_name.c_str(), "r");
@@ -236,7 +275,7 @@ void InGameScene::LoadBackStageMapCSV()
 	FILE* fp = NULL;
 	std::string file_name = "Resource/Map/Haikei.csv";
 
-	ResourceManager* rm = ResourceManager::GetInstance();
+	ResourceManager* rm = ResourceManager::Get();
 
 	// 指定されたファイルを開く
 	errno_t result = fopen_s(&fp, file_name.c_str(), "r");
@@ -352,6 +391,7 @@ void InGameScene::LoadBackStageMapCSV()
 
 void InGameScene::CreateStage()
 {
+	GameObjectManager* gm = GameObjectManager::Get();
 	for (int x = 0; x < block.size(); x++)
 	{
 		for (int y = 0; y < block[x].size(); y++)
@@ -363,58 +403,58 @@ void InGameScene::CreateStage()
 				{
 					// 床
 				case 'f':
-					ground_stage = 'f';
+					object[x][y] = gm->CreateGameObject<Ground>(genelate_location);
 					break;
 					// 階段ブロック
 				case 'B':
-					ground_stage = 'B';
+					object[x][y] = gm->CreateGameObject<Stairs>(genelate_location);
 					break;
 					// ブロック
 				case 'b':
-					ground_stage = 'b';
+					object[x][y] = gm->CreateGameObject<Block>(genelate_location);
 					break;
 					// ？ブロック
 				case 'h':
-					ground_stage = 'h';
+					object[x][y] = gm->CreateGameObject<Hatena>(genelate_location);
 					break;
 					//土管
 				case 'd':
-					ground_stage = 'd';
+					object[x][y] = gm->CreateGameObject<Dokan_Left_Up>(genelate_location);
 					break;
 				case 'o':
-					ground_stage = 'o';
+					object[x][y] = gm->CreateGameObject<Dokan_Right_Up>(genelate_location);
 					break;
 				case 'A':
-					ground_stage = 'A';
+					object[x][y] = gm->CreateGameObject<Dokan_Left_Down>(genelate_location);
 					break;
 				case 'K':
-					ground_stage = 'K';
+					object[x][y] = gm->CreateGameObject<Dokan_Right_Down>(genelate_location);
 					break;
 					// クリボー
 				case 'k':
-					ground_stage = 'k';
+					object[x][y] = gm->CreateGameObject<kuribo>(genelate_location);
 					break;
 					// ゴール
 				case 'P':
-					ground_stage = 'P';
+					object[x][y] = gm->CreateGameObject<Goal>(genelate_location);
 					break;
 				case 'G':
-					ground_stage = 'G';
+					object[x][y] = gm->CreateGameObject<Goal>(genelate_location);
 					break;
 				case 'p':
-					ground_stage = 'p';
+					object[x][y] = gm->CreateGameObject<Goal>(genelate_location);
 					break;
 					//ノコノコ
 				case 'n':
-					ground_stage = 'n';
+					object[x][y] = gm->CreateGameObject<Nokonoko>(genelate_location);
 					break;
 				default:
 					break;
 				}
-				// 格納
-				block[x][y] = ground_stage;
-				
+
+				x++;
 			}
+
 		}
 	}
 }

@@ -1,14 +1,11 @@
 #pragma once
 #include "BlockBase.h"
 
-class Block : public BlockBase
+class Stairs : public BlockBase
 {
-private:
-
 public:
-	Block() = default;
-	virtual ~Block()
-	{
+	Stairs() = default;
+	~Stairs() {
 
 	}
 
@@ -20,6 +17,5 @@ public:
 	/// </summary>
 	/// <param name="hit_object">当たったゲームオブジェクトのポインタ</param>
 	virtual void OnHitCollision(GameObject* hit_object) override;
-
 };
 

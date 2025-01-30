@@ -1,12 +1,17 @@
 #pragma once
-#include "Blockbase.h"
+#include "BlockBase.h"
 
 class Hatena : public BlockBase
 {
+private:
+	std::vector<int> animation;
 public:
 
-	Hatena();
-	virtual ~Hatena();
+	Hatena() = default;
+	virtual ~Hatena()
+	{
+
+	}
 
 	virtual void Initialize() override;
 	virtual void Draw(const Vector2D& screen_offset) const override;

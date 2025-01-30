@@ -22,7 +22,7 @@ enum class eSceneType
 class SceneBase
 {
 public:
-	GameObjectManager* gm = GameObjectManager::GetInstance();
+	GameObjectManager* gm = GameObjectManager::Get();
 	Vector2D	screen_offset;	// スクリーンオフセット
 	std::vector<GameObject*> game_objects_list;
 

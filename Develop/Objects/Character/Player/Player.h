@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../../../Objects/GameObject.h"
-#include "../../../Utility/ResourceManager.h"
 #include "../Enemy/EnemyBase.h"
 #include "State/Enum/PlayerState.h"
 
@@ -21,17 +20,6 @@ enum ePlayerMode
 /// </summary>
 class Player : public GameObject
 {
-private:
-	// 進行方向状態
-	enum eDirectionState : unsigned char
-	{
-		UP,
-		RIGHT,
-		DOWN,
-		LEFT,
-		NONE,
-	};
-
 private:
 	std::vector<int> dekamarimation_animation;		// 移動のアニメーション画像
 	std::vector<int> dekamario_animation;		// 死亡のアニメーション画像

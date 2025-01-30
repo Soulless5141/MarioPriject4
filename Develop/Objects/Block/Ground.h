@@ -1,12 +1,15 @@
 #pragma once
-#include "Blockbase.h"
+#include "BlockBase.h"
 
 class Ground : public BlockBase
 {
 public:
 
-	Ground();
-	virtual ~Ground();
+	Ground() = default;
+	virtual ~Ground()
+	{
+
+	}
 
 	virtual void Initialize() override;
 	virtual void Draw(const Vector2D& screen_offset) const override;

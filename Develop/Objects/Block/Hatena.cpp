@@ -1,15 +1,17 @@
 #include "Hatena.h"
+
 void Hatena::Initialize()
 {
 	// アニメーション画像の読み込み
-	/*ResourceManager* rm = ResourceManager::GetInstance();
-	image = rm->GetImages("")*/
-
+	ResourceManager* rm = ResourceManager::Get();
+	animation = rm->GetImages("Resource/Images/Block/hatena", 4, 4, 1, 32, 32);
+	image = rm->GetImages("Resource/Images/Block/kara_block.png", 1, 1, 1, 32, 32)[0];
+	animation.push_back(image);
+	image = animation[0];
 	// 当たり判定の設定
 	collision.is_blocking = true;
 	collision.object_type = eObjectType::eBlock;
 	collision.hit_object_type.push_back(eObjectType::ePlayer);
-	collision.hit_object_type.push_back(eObjectType::eEnemy);
 }
 
 void Hatena::Draw(const Vector2D& screen_offset) const
