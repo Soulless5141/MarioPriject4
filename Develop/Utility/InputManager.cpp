@@ -1,37 +1,7 @@
 #include "InputManager.h"
 #include "DxLib.h"
 
-// 静的メンバ変数定義
-InputManager* InputManager::instance = nullptr;
 
-/// <summary>
-/// インスタンス取得処理
-/// </summary>
-/// <returns>インスタンスのポインタを返却する</returns>
-InputManager* InputManager::GetInstance()
-{
-	// インスタンスが生成されていない場合、生成する
-	if (instance == nullptr)
-	{
-		instance = new InputManager();
-	}
-
-	// インスタンスのポインタを返却する
-	return instance;
-}
-
-/// <summary>
-/// インスタンス削除処理
-/// </summary>
-void InputManager::DeleteInstance()
-{
-	// インスタンスが存在している場合、削除する
-	if (instance != nullptr)
-	{
-		delete instance;
-		instance = nullptr;
-	}
-}
 
 /// <summary>
 /// 更新処理

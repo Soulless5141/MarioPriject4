@@ -1,42 +1,6 @@
 #include "ResourceManager.h"
 #include "DxLib.h"
 
-// 静的メンバ変数定義
-ResourceManager* ResourceManager::instance = nullptr;	// 自クラスのポインタ
-
-/// <summary>
-/// インスタンス取得処理
-/// </summary>
-/// <returns>インスタンスのポインタを返却する</returns>
-ResourceManager* ResourceManager::GetInstance()
-{
-	// インスタンスが生成されていない場合、生成する
-	if (instance == nullptr)
-	{
-		instance = new ResourceManager();
-	}
-
-	return instance;
-}
-
-/// <summary>
-/// インスタンス削除処理
-/// </summary>
-void ResourceManager::DeleteInstance()
-{
-	// インスタンスが生成されている場合、削除する
-	if (instance != nullptr)
-	{
-		// 画像リソースの解放
-		instance->UnLoadImages();
-		// 音源リソースの解放
-		instance->UnLoadSounds();
-		// インスタンスを削除する
-		delete instance;
-		instance = nullptr;
-	}
-}
-
 /// <summary>
 /// 画像取得処理
 /// </summary>

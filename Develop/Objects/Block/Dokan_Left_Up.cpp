@@ -1,11 +1,10 @@
-#include "Block.h"
-#include "DxLib.h"
+#include "Dokan_Left_Up.h"
 
-void Block::Initialize()
+void Dokan_Left_Up::Initialize()
 {
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::Get();
-	image = rm->GetImages("Resource/Images/Block/block.png", 1, 1, 1, 32, 32)[0];
+	image = rm->GetImages("Resource/Images/dokan_left_up", 1, 1, 1, 32, 32)[0];
 
 	// 当たり判定の設定
 	collision.is_blocking = true;
@@ -13,7 +12,7 @@ void Block::Initialize()
 	collision.hit_object_type.push_back(eObjectType::ePlayer);
 }
 
-void Block::Draw(const Vector2D& screen_offset) const
+void Dokan_Left_Up::Draw(const Vector2D& screen_offset) const
 {
 	/*Vector2D generate_location = (Vector2D((float)x, (float)y) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
 	back_ground_stage = rm->GetImages("Resource/Images/sora.png", 1, 1, 1, 32, 32)[0];
@@ -21,7 +20,7 @@ void Block::Draw(const Vector2D& screen_offset) const
 	__super::Draw(screen_offset);
 }
 
-void Block::OnHitCollision(GameObject* hit_object)
+void Dokan_Left_Up::OnHitCollision(GameObject* hit_object)
 {
 	// 当たった、オブジェクトが壁だったら
 	if (hit_object->GetCollision().object_type == eObjectType::eBlock)

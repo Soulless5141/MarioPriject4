@@ -3,25 +3,15 @@
 #include "Block.h"
 #include "DxLib.h"
 
-Ground::Ground()
-{
-}
-
-Ground::~Ground()
-{
-}
-
 void Ground::Initialize()
 {
 	// アニメーション画像の読み込み
-	/*ResourceManager* rm = ResourceManager::GetInstance();
-	image = rm->GetImages("")*/
+	ResourceManager* rm = ResourceManager::Get();
+	image = rm->GetImages("Resource/Images/Block/floor.png", 1, 1, 1, 32, 32)[0];
 
 	// 当たり判定の設定
 	collision.is_blocking = true;
 	collision.object_type = eObjectType::eBlock;
-	collision.hit_object_type.push_back(eObjectType::ePlayer);
-	collision.hit_object_type.push_back(eObjectType::eEnemy);
 }
 
 void Ground::Draw(const Vector2D& screen_offset) const
@@ -32,28 +22,28 @@ void Ground::Draw(const Vector2D& screen_offset) const
 	__super::Draw(screen_offset);
 }
 
-//void Ground::OnHitCollision(GameObjectManager* hit_object)
-//{
-//	// 当たった、オブジェクトが壁だったら
-//	if (hit_object->GetCollision().object_type == eObjectType::eBlock)
-//	{
-//		//// 当たり判定情報を取得して、カプセルがある位置を求める
-//		//Collision hc = hit_object->GetCollision();
-//		//hc.point[0] += hit_object->GetLocation();
-//		//hc.point[1] += hit_object->GetLocation();
-//
-//		//// 最近傍点を求める
-//		//Vector2D near_point = CheckCollision(hc, this->location);
-//
-//		//// Playerからnear_pointへの方向ベクトルを取得
-//		//Vector2D dv2 = near_point - this->location;
-//		//Vector2D dv = this->location - near_point;
-//
-//		//// めり込んだ差分
-//		//float diff = (this->GetCollision().radius + hc.radius) - dv.Length();
-//
-//		//// diffの分だけ戻る
-//		//location += dv.Normalize() * diff;
-//	}
-//}
+void Ground::OnHitCollision(GameObject* hit_object)
+{
+	// 当たった、オブジェクトが壁だったら
+	if (hit_object->GetCollision().object_type == eObjectType::eBlock)
+	{
+		//// 当たり判定情報を取得して、カプセルがある位置を求める
+		//Collision hc = hit_object->GetCollision();
+		//hc.point[0] += hit_object->GetLocation();
+		//hc.point[1] += hit_object->GetLocation();
+
+		//// 最近傍点を求める
+		//Vector2D near_point = CheckCollision(hc, this->location);
+
+		//// Playerからnear_pointへの方向ベクトルを取得
+		//Vector2D dv2 = near_point - this->location;
+		//Vector2D dv = this->location - near_point;
+
+		//// めり込んだ差分
+		//float diff = (this->GetCollision().radius + hc.radius) - dv.Length();
+
+		//// diffの分だけ戻る
+		//location += dv.Normalize() * diff;
+	}
+}
 

@@ -47,7 +47,7 @@ void RunningState::Finalize()
 void RunningState::Update()
 {
 	//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
-	InputManager* input = InputManager::GetInstance();
+	InputManager* input = InputManager::Get();
 
 	if (input->GetKey(KEY_INPUT_A))
 	{

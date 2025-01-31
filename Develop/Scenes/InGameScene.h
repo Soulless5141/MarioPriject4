@@ -18,6 +18,7 @@ private:
 
 	std::vector<std::vector<int>>haikei_block;
 	std::vector<std::vector<int>>block;
+	std::vector<std::vector<GameObject*>>object;
 
 	//// 背景画像の読み込み
 	//ResourceManager* rm = ResourceManager::GetInstance();
@@ -40,7 +41,7 @@ public:
 	/// </summary>
 	/// <param name="target">1つ目のゲームオブジェクト</param>
 	/// <param name="partner">2つ目のゲームオブジェクト</param>
-	virtual void CheckCollision(GameObjectManager* target, GameObjectManager* partner) override;
+	virtual void CheckCollision(GameObject* target, GameObject* partner) override;
 
 private:
 	/// <summary>
@@ -51,6 +52,10 @@ private:
 	/// ステージマップ読み込み処理
 	/// </summary>
 	void LoadBackStageMapCSV();
-	
+	/// <summary>
+	/// ステージ生成
+	/// </summary>
+	void CreateStage();
+
 };
 

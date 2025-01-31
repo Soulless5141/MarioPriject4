@@ -12,14 +12,12 @@
 #define D_OBJECT_SIZE	(32.0f)			// 壁のサイズ
 
 // ゲームオブジェクト基底クラス
-class GameObjectManager : public GameObject
+class GameObjectManager : public Singleton<GameObjectManager>
 {
 private:
 	std::vector<GameObject*> create_objects;
 	std::vector<GameObject*> destroy_objects;
 	std::vector<GameObject*> game_objects_list;
-
-	static GameObjectManager* instance;
 
 public:
 	GameObjectManager();
@@ -28,11 +26,8 @@ public:
 public:
 	void CheckCreateObject();
 	void CheckDestroyObject();
-	void CheckCollision(GameObject* target, GameObject* partner);
-	void Draw(const Vector2D& screen_offset) const;
-	virtual void Update(float screen_offset);
 	std::vector<GameObject*>GetObjectsList() const;
-	static GameObjectManager* GetInstance();
+
 
 	template<class T>
 	T* CreateGameObject(const Vector2D& generate_location)
@@ -66,7 +61,7 @@ public:
 	/// オブジェクト破棄処理
 	/// </summary>
 	/// <param name="target">破棄を行うゲームオブジェクトのポインタ</param>
-	void DestroyGameObject(GameObjectManager* target)
+	void DestroyGameObject(GameObject* target)
 	{
 		// ヌルポチェック
 		if (target == nullptr)

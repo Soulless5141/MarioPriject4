@@ -16,7 +16,7 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	// ”wŒi‰æ‘œ‚Ì“Ç‚Ýž‚Ý
-	ResourceManager* rm = ResourceManager::GetInstance();
+	ResourceManager* rm = ResourceManager::Get();
 	
 	back_ground_image = rm->GetImages("Resource/Images/title.png")[0];
 }
@@ -24,7 +24,7 @@ void TitleScene::Initialize()
 eSceneType TitleScene::Update(const float& delta_second)
 {
 	// “ü—Íî•ñ‚ðŽæ“¾
-	InputManager* input = InputManager::GetInstance();
+	InputManager* input = InputManager::Get();
 
 	// ƒCƒ“ƒQ[ƒ€ƒV[ƒ“‚É‘JˆÚ‚·‚é
 	if (input->GetKeyDown(KEY_INPUT_SPACE))

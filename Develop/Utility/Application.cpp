@@ -1,7 +1,6 @@
 #include "Application.h"
 #include "DxLib.h"
-#include "InputManager.h"
-#include "ResourceManager.h"
+
 
 
 Application::Application()
@@ -96,7 +95,7 @@ void Application::WakeUp()
 void Application::Run()
 {
 	// 入力情報を取得する
-	InputManager* input = InputManager::GetInstance();
+	input = InputManager::Get();
 
 	// メインループ
 	while (ProcessMessage() == D_SUCCESS)
@@ -124,8 +123,8 @@ void Application::Shutdown()
 	//scene->Finalize();
 
 	// Singletonのインスタンスを解放する
-	InputManager::DeleteInstance();
-	ResourceManager::DeleteInstance();
+	input->DeleteInstance(input);
+	rm->DeleteInstance(rm);
 
 	// Dxライブラリの使用を終了する
 	DxLib_End();

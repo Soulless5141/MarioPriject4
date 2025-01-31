@@ -3,7 +3,6 @@
 #include <cmath>
 
 #include "../../../Utility/InputManager.h"
-#include "../../../Utility/ResourceManager.h"
 #include "State/Factory/PlayerStateFactory.h"
 #include "DxLib.h"
 
@@ -36,7 +35,7 @@ Player::~Player()
 void Player::Initialize()
 {
 	// アニメーション画像の読み込み
-	ResourceManager* rm = ResourceManager::GetInstance();
+	ResourceManager* rm = ResourceManager::Get();
 	dekamarimation_animation = rm->GetImages("Resource/Images/Mario/dekamarimation.png", 3, 3, 1, 32, 32);
 	dekamario_animation = rm->GetImages("Resource/Images/Mario/dekamario.png", 10, 10, 1, 32, 32);
 	faiyamario_animation = rm->GetImages("Resource/Images/Mario/faiyamario.png", 9, 9, 1, 32, 32);

@@ -1,13 +1,11 @@
 #pragma once
 #include "BlockBase.h"
 
-class Block : public BlockBase
+class Dokan_Left_Down : public BlockBase
 {
-private:
-
 public:
-	Block() = default;
-	virtual ~Block()
+	Dokan_Left_Down() = default;
+	~Dokan_Left_Down()
 	{
 
 	}
@@ -20,6 +18,5 @@ public:
 	/// </summary>
 	/// <param name="hit_object">当たったゲームオブジェクトのポインタ</param>
 	virtual void OnHitCollision(GameObject* hit_object) override;
-
 };
 

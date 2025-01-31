@@ -1,6 +1,8 @@
 #pragma once
 #include "../Scenes/SceneManager.h"
 #include "Singleton.h"
+#include "InputManager.h"
+#include "ResourceManager.h"
 
 #include <string>
 
@@ -37,6 +39,8 @@ int ErrorThrow(std::string error_log);
 class Application : public Singleton<Application>
 {
 public:
+	InputManager* input = InputManager::Get();
+	ResourceManager* rm = ResourceManager::Get();
 	SceneManager* scene = SceneManager::Get();
 
 public:	

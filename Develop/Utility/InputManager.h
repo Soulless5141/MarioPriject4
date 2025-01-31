@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector2D.h"
+#include "Singleton.h"
 
 // マクロ定義
 #define	D_KEYCODE_MAX	(256)		// キーボード入力値最大数
@@ -9,11 +10,9 @@
 /// <summary>
 /// 入力管理クラス（Singleton）
 /// </summary>
-class InputManager
+class InputManager : public Singleton<InputManager>
 {
 private:
-	// 自クラスのポインタ（実体をアドレスの先で保有）
-	static InputManager* instance;
 
 	// キー入力情報
 	char now_key[D_KEYCODE_MAX];		// 現在の入力値
@@ -25,7 +24,7 @@ private:
 	float trigger[2];					// トリガー入力値（0.0f～1.0f）
 	Vector2D stick[2];					// スティック入力値（-1.0f～1.0f）
 
-private:
+public:
 	// クラスの実体をメンバ関数内でしか生成できないようにする
 	InputManager() = default;
 	// コピーガード
@@ -35,18 +34,6 @@ private:
 
 public:
 	~InputManager() = default;
-
-public:
-	/// <summary>
-	/// インスタンス取得処理
-	/// </summary>
-	/// <returns>インスタンスのポインタを返却する</returns>
-	static InputManager* GetInstance();
-
-	/// <summary>
-	/// インスタンス削除処理
-	/// </summary>
-	static void DeleteInstance();
 
 public:
 	/// <summary>

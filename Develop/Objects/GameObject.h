@@ -2,6 +2,7 @@
 #include "../Utility/Vector2D.h"
 #include "../Utility/Collision.h"
 #include "../Utility/Camera.h"
+#include "../Utility/ResourceManager.h"
 
 /// <summary>
 /// ‰Â“®«‚Ìí—Ş

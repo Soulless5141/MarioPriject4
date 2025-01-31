@@ -32,7 +32,7 @@ void StoppedState::Initialize()
 	player->box_size = Vector2D(32.0f);
 
 	//“ü—Íî•ñ‚ğæ“¾
-	input = InputManager::GetInstance();
+	input = InputManager::Get();
 }
 
 /// <summary>
