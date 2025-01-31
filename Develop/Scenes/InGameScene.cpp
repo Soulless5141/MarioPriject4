@@ -457,3 +457,11 @@ void InGameScene::CreateStage()
 		}
 	}
 }
+
+/// <summary>
+/// オブジェクト削除
+/// </summary>
+void InGameScene::DeleteStage()
+{
+
+}

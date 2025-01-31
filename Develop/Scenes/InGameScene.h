@@ -56,6 +56,9 @@ private:
 	/// ステージ生成
 	/// </summary>
 	void CreateStage();
-
+	/// <summary>
+	/// オブジェクト削除
+	/// </summary>
+	void DeleteStage();
 };
 
