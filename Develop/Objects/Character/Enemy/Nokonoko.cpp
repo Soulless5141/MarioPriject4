@@ -5,7 +5,7 @@
 void Nokonoko::Initialize()
 {
 	ResourceManager* rm = ResourceManager::Get();
-	animation = rm->GetImages("Resource/Enemy/nokonoko.png", 2, 2, 1, 32, 64);
+	animation = rm->GetImages("Resource/Images/Enemy/nokonoko.png", 2, 2, 1, 32, 64);
 	image = animation[0];
 }
 /// <summary>

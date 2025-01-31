@@ -44,6 +44,7 @@ public:
 	/// </summary>
 	virtual void Initialize()
 	{
+		screen_offset.y = 16.0f;
 	}
 
 	/// <summary>

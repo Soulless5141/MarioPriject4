@@ -4,7 +4,7 @@ void Dokan_Right_Down::Initialize()
 {
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::Get();
-	image = rm->GetImages("Resource/Images/dokan_right_down", 1, 1, 1, 32, 32)[0];
+	image = rm->GetImages("Resource/Images/dokan_right_down.png", 1, 1, 1, 32, 32)[0];
 
 	// 当たり判定の設定
 	collision.is_blocking = true;

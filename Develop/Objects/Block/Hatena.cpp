@@ -4,7 +4,7 @@ void Hatena::Initialize()
 {
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::Get();
-	animation = rm->GetImages("Resource/Images/Block/hatena", 4, 4, 1, 32, 32);
+	animation = rm->GetImages("Resource/Images/Block/hatena.png", 4, 4, 1, 32, 32);
 	image = rm->GetImages("Resource/Images/Block/kara_block.png", 1, 1, 1, 32, 32)[0];
 	animation.push_back(image);
 	image = animation[0];

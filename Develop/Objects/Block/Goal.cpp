@@ -45,7 +45,7 @@ void Goal::OnHitCollision(GameObject* hit_object)
 void Goal::SetImages()
 {
 	// アニメーション画像の読み込み
-	ResourceManager* rm = ResourceManager::Get();
+    ResourceManager* rm = ResourceManager::Get();
 	if (location.y >= 96)
 	{
 		if (location.x <= 6304.0)

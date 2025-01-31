@@ -58,6 +58,7 @@ void InGameScene::Initialize()
 	back_bgm = rm->GetSounds("Resource/Sounds/BGM_MarioGround.wav");
 
 	PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
+	__super::Initialize();
 }
 
 eSceneType InGameScene::Update(const float& delta_second)
@@ -72,6 +73,7 @@ eSceneType InGameScene::Update(const float& delta_second)
 
 	if (!pause_flag)
 	{
+		CreateStage();
 		// 親クラスの更新処理を呼び出す
 		__super::Update(delta_second);
 	}
@@ -92,8 +94,6 @@ void InGameScene::Draw()
 			DrawRotaGraph(generate_location.x, generate_location.y, 1.0, 0.0, haikei_block[i][j], TRUE);
 		}
 	}
-
-	LoadStageMapCSV();
 
 	// 親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -397,10 +397,10 @@ void InGameScene::CreateStage()
 		{
 			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (player->GetLocation().x + (D_WIN_MAX_X / 2)))
 			{
-				Vector2D genelate_location = Vector2D(((float)x, (float)y)) * OBJECT_SIZE;
+				Vector2D genelate_location = Vector2D((float)x * OBJECT_SIZE, (float)y * OBJECT_SIZE);
 				switch (block[x][y])
 				{
-					// 床
+				// 床
 				case 'f':
 					object[x][y] = gm->CreateGameObject<Ground>(genelate_location);
 					break;

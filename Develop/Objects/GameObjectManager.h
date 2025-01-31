@@ -47,10 +47,10 @@ public:
 		}
 		// シーン情報の設定
 		//new_object->SetOwnerScene(this);
-		// オブジェクトの初期化
-		new_object->Initialize();
 		// 位置情報の設定
 		new_object->SetLocation(generate_location);
+		// オブジェクトの初期化
+		new_object->Initialize();
 		// 生成オブジェクトリストの末尾に格納する
 		create_objects.push_back(new_object);
 		// 生成したゲームオブジェクトのポインタを返す

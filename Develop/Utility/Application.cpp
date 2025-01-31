@@ -123,8 +123,7 @@ void Application::Shutdown()
 	//scene->Finalize();
 
 	// Singletonのインスタンスを解放する
-	input->DeleteInstance(input);
-	rm->DeleteInstance(rm);
+
 
 	// Dxライブラリの使用を終了する
 	DxLib_End();

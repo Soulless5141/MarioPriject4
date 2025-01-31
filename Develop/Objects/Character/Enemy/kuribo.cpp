@@ -5,7 +5,7 @@
 void kuribo::Initialize()
 {
 	ResourceManager* rm = ResourceManager::Get();
-	animation = rm->GetImages("Resource/Enemy/kuribo.png", 3, 3, 1, 32, 32);
+	animation = rm->GetImages("Resource/Images/Enemy/kuribo.png", 3, 3, 1, 32, 32);
 	image = animation[0];
 }
 /// <summary>
