@@ -190,7 +190,6 @@ void InGameScene::LoadStageMapCSV()
 		// •¶š‚ğ’Šo‚µ‚ÄŠi”[
 		else if (c != ' ' && c != '\n' && c != ',')
 		{
-			Vector2D generate_location = (Vector2D((float)x, (float)y) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
 
 			switch (c)
 			{
@@ -452,7 +451,7 @@ void InGameScene::CreateStage()
 					break;
 				}
 
-				x++;
+				block[x][y] = NULL;
 			}
 
 		}
