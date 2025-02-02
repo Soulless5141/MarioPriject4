@@ -133,11 +133,26 @@ void Player::Movement(float delta_second)
 
 	//重力速度の計算
 	g_velocity = D_GRAVITY / 444.0f;
+	f_velocity = FRICTION / 444.0f;
 
 	/*move_time += delta_second;
 	if (move_time >= (1.0f / 30.0f))
 	{*/
 	velocity.y += g_velocity;
+	if (velocity.x >= 0.5f)
+	{
+		velocity.x -= f_velocity;
+	}
+	else if (velocity.x <= -0.5f)
+	{
+		velocity.x += f_velocity;
+	}
+	else
+	{
+		velocity.x = 0.0f;
+		f_velocity = 0.0f;
+	}
+		
 
 	//状態別の更新処理を行う
 	state->Update();

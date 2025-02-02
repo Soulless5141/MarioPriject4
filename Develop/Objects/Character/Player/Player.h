@@ -4,6 +4,8 @@
 #include "../Enemy/EnemyBase.h"
 #include "State/Enum/PlayerState.h"
 
+#define FRICTION (3.612)		//摩擦力
+
 // プレイヤー状態
 enum ePlayerMode
 {
@@ -40,10 +42,13 @@ private:
 private:
 	class PlayerStateBase* state = nullptr;
 	float g_velocity = 0.0f;
+	bool is_fly;					//空中にいるかどうか
 
 public:
 	Vector2D velocity = Vector2D(0.0f);
 	Vector2D box_size = Vector2D(0.0f);
+	float f_velocity = 0.0f;							//減速速度
+                                   
 
 public:
 	int sound;

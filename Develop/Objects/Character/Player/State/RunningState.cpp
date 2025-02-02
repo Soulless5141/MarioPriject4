@@ -52,14 +52,15 @@ void RunningState::Update()
 	if (input->GetKey(KEY_INPUT_A))
 	{
 		player->velocity.x = -4.0f; //ˆÚ“®—Í
+		player->f_velocity = 0.0f;
 	}
 	else if (input->GetKey(KEY_INPUT_D))
 	{
 		player->velocity.x = 4.0f; //ˆÚ“®—Í
+		player->f_velocity = 0.0f;
 	}
 	else
 	{
-		player->velocity.x = 0.0f; //ˆÚ“®—ÍÁ–Å
 		//’âŽ~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eIdle);
 	}
