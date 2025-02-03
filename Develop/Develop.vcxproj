@@ -147,6 +147,7 @@
     <ClCompile Include="Objects\Character\Player\State\Factory\PlayerStateFactory.cpp" />
     <ClCompile Include="Objects\Character\Player\State\JumpingState.cpp" />
     <ClCompile Include="Objects\Character\Player\State\RunningState.cpp" />
+    <ClCompile Include="Objects\Character\Player\State\SquatState.cpp" />
     <ClCompile Include="Objects\Character\Player\State\StoppedState.cpp" />
     <ClCompile Include="Objects\GameObject.cpp" />
     <ClCompile Include="Objects\GameObjectManager.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Objects\Character\Player\State\JumpingState.h" />
     <ClInclude Include="Objects\Character\Player\State\PlayerStateBase.h" />
     <ClInclude Include="Objects\Character\Player\State\RunningState.h" />
+    <ClInclude Include="Objects\Character\Player\State\SquatState.h" />
     <ClInclude Include="Objects\Character\Player\State\StoppedState.h" />
     <ClInclude Include="Objects\GameObject.h" />
     <ClInclude Include="Objects\GameObjectManager.h" />

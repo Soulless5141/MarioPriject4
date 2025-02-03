@@ -3,6 +3,7 @@
 #include "../StoppedState.h"
 #include "../JumpingState.h"
 #include "../RunningState.h"
+#include "../SquatState.h"
 
 #include "../../Player.h"
 
@@ -14,6 +15,7 @@ void PlayerStateFactory::Initialize(class Player& player)
 	idle = new StoppedState(&player);
 	jump = new JumpingState(&player);
 	run = new RunningState(&player);
+	squat = new SquatState(&player);
 }
 
 void PlayerStateFactory::Finalize()
@@ -21,10 +23,12 @@ void PlayerStateFactory::Finalize()
 	instance->idle->Finalize();
 	instance->jump->Finalize();
 	instance->run->Finalize();
+	instance->squat->Finalize();
 
 	delete instance->idle;
 	delete instance->jump;
 	delete instance->run;
+	delete instance->squat;
 }
 
 PlayerStateBase* PlayerStateFactory::Get(Player& player, ePlayerState state)
@@ -49,6 +53,10 @@ PlayerStateBase* PlayerStateFactory::Get(Player& player, ePlayerState state)
 	case ePlayerState::eRun:
 		instance->run->Initialize();
 		ret = instance->run;
+		break;
+	case ePlayerState::eSquat:
+		instance->squat->Initialize();
+		ret = instance->squat;
 		break;
 	default:
 		break;

@@ -4,7 +4,7 @@ enum class ePlayerState : unsigned char
 	eIdle,
 	eRun,
 	eJump,
-	sSquat,
+	eSquat,
 	eDamage,
 	eGoal
 };

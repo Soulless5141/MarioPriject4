@@ -17,6 +17,7 @@ private:
 	class StoppedState* idle;
 	class JumpingState* jump;
 	class RunningState* run;
+	class SquatState* squat;
 
 private:
 	void Initialize(class Player& player);

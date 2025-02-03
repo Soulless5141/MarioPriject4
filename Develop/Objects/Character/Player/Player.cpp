@@ -232,7 +232,7 @@ void Player::AnimationControl(float delta_second)
 	case ePlayerState::eJump:
 		PlaySoundMem(sound, DX_PLAYTYPE_BACK);
 		break;
-	case ePlayerState::sSquat:
+	case ePlayerState::eSquat:
 		break;
 	case ePlayerState::eDamage:
 		break;
