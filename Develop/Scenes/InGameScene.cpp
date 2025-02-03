@@ -475,7 +475,7 @@ void InGameScene::DeleteStage()
 			if (object[x][y] != nullptr && object[x][y]->GetLocation().x < camera->GetCameraLocation().x - (D_WIN_MAX_X / 2))
 			{
 				gm->DestroyGameObject(object[x][y]);
-				delete object[x][y];
+				object[x][y] = nullptr;
 			}
 		}
 	}
