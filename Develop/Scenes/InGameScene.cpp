@@ -143,10 +143,8 @@ void InGameScene::CheckCollision(GameObject* target, GameObject* partner)
 	{
 
 		// 線分の始点と終点を設定する
-		tc.point[0] += target->GetLocation() - 32;
-		tc.point[1] += target->GetLocation() + 32;
-		pc.point[0] += partner->GetLocation() - 32;
-		pc.point[1] += partner->GetLocation() + 32;
+		tc.pivot = target->GetLocation();
+		pc.pivot = partner->GetLocation();
 
 		// カプセル同士の当たり判定
 		if (IsCheckCollision(tc, pc))

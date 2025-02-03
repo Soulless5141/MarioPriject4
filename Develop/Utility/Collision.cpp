@@ -30,28 +30,28 @@ bool IsCheckCollision(const Collision& c1, const Collision& c2)
 {
 	// 矩形Aの左辺と矩形Bの右辺の関係チェック
 	bool is_left_less_right = false;
-	if (c1.point[0].x <= c2.point[1].x)
+	if (c1.pivot.x - (c1.box_size.x / 2) <= c2.pivot.x + (c2.box_size.x / 2))
 	{
 		is_left_less_right = true;
 	}
 
 	// 矩形Aの右辺と矩形Bの左辺の関係チェック
 	bool is_right_greater_left = false;
-	if (c1.point[1].x >= c2.point[0].x)
+	if (c1.pivot.x + (c1.box_size.x / 2) <= c2.pivot.x - (c2.box_size.x / 2))
 	{
 		is_right_greater_left = true;
 	}
 
 	// 矩形Aの上辺と矩形Bの下辺の関係チェック
 	bool is_top_less_bottom = false;
-	if (c1.point[0].y <= c2.point[1].y)
+	if (c1.pivot.y - (c1.box_size.y / 2) <= c2.pivot.y + (c2.box_size.y / 2))
 	{
 		is_top_less_bottom = true;
 	}
 
 	// 矩形Aの下辺と矩形Bの上辺の関係チェック
 	bool is_bottom_greater_top = false;
-	if (c1.point[1].y >= c2.point[0].y)
+	if (c1.pivot.y + (c1.box_size.y / 2) <= c2.pivot.y - (c2.box_size.y / 2))
 	{
 		is_bottom_greater_top = true;
 	}

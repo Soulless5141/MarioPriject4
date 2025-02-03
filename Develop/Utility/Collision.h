@@ -20,18 +20,18 @@ public:
 	bool						is_blocking;		// すり抜けフラグ
 	eObjectType					object_type;		// 自身のオブジェクトタイプ
 	std::vector<eObjectType>	hit_object_type;	// 適用するオブジェクトタイプ
-	float						radius;				// 円の半径
-	Vector2D					point[2];			// 始点と終点（相対座標）
+	Vector2D					pivot;				// 中心点
+	Vector2D					box_size;			// 判定の大きさ
 
 public:
 	Collision() :
 		is_blocking(false),
 		object_type(eObjectType::eNone),
 		hit_object_type(),
-		radius(0.0f)
+		pivot(0.0f),
+		box_size(0.0f)
 	{
-		point[0] = 0.0f;
-		point[1] = 0.0f;
+
 	}
 	~Collision()
 	{

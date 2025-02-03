@@ -83,7 +83,7 @@ public:
 					continue;
 				}
 
-				//CheckCollision(game_objects_list[i], game_objects_list[j]);
+				CheckCollision(game_objects_list[i], game_objects_list[j]);
 			}
 		}
 
