@@ -58,6 +58,8 @@ public:
 		
 		gm->CheckCreateObject();
 
+		gm->CheckDestroyObject();
+
 		game_objects_list = gm->GetObjectsList();
 
 		// リスト内のオブジェクトを更新する

@@ -76,6 +76,8 @@ eSceneType InGameScene::Update(const float& delta_second)
 		CreateStage();
 		// 親クラスの更新処理を呼び出す
 		__super::Update(delta_second);
+
+		DeleteStage();
 	}
 
 	// シーン情報を返却する
@@ -94,6 +96,9 @@ void InGameScene::Draw()
 			DrawRotaGraph(generate_location.x, generate_location.y, 1.0, 0.0, haikei_block[i][j], TRUE);
 		}
 	}
+
+	DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0xff0000, false);
+	DrawFormatString(10,0, 0x000000, "%f", camera->GetCameraLocation().x);
 
 	// 親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -395,7 +400,7 @@ void InGameScene::CreateStage()
 	{
 		for (int y = 0; y < block[x].size(); y++)
 		{
-			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (player->GetLocation().x + (D_WIN_MAX_X / 2)))
+			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (camera->GetCameraLocation().x + (D_WIN_MAX_X / 1.9)))
 			{
 				Vector2D genelate_location = Vector2D((float)x * OBJECT_SIZE, (float)y * OBJECT_SIZE);
 				switch (block[x][y])
@@ -463,5 +468,15 @@ void InGameScene::CreateStage()
 /// </summary>
 void InGameScene::DeleteStage()
 {
-
+	for (int x = 0; x < object.size(); x++)
+	{
+		for (int y = 0; y < object[x].size(); y++)
+		{
+			if (object[x][y] != nullptr && object[x][y]->GetLocation().x < camera->GetCameraLocation().x - (D_WIN_MAX_X / 2))
+			{
+				gm->DestroyGameObject(object[x][y]);
+				delete object[x][y];
+			}
+		}
+	}
 }
