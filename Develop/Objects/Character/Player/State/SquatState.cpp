@@ -52,6 +52,11 @@ void SquatState::Update()
 		//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
 		InputManager* input = InputManager::Get();
 
+		if (input->GetKey(KEY_INPUT_S))
+		{
+			
+		}
+
 		//’âŽ~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eIdle);
 	}

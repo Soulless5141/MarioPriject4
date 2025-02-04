@@ -61,6 +61,13 @@ void StoppedState::Update()
 		//’âŽ~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eJump);
 	}
+
+	//‚µ‚á‚ª‚Ýó‘Ô‚É‘JˆÚ
+	if (input->GetKey(KEY_INPUT_S))
+	{
+		//ˆÚ“®ó‘Ô‚É‘JˆÚ
+		player->SetNextState(ePlayerState::eSquat);
+	}
 }
 
 /// <summary>
