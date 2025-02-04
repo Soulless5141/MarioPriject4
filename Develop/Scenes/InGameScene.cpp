@@ -97,8 +97,9 @@ void InGameScene::Draw()
 		}
 	}
 
-	DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0xff0000, false);
-	DrawFormatString(10,0, 0x000000, "%f", camera->GetCameraLocation().x);
+	// デバッグ用枠線だったもの
+	/*DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0xff0000, false);
+	DrawFormatString(10,0, 0x000000, "%f", camera->GetCameraLocation().x);*/
 
 	// 親クラスの描画処理を呼び出す
 	__super::Draw();
