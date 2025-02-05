@@ -57,7 +57,7 @@ void InGameScene::Initialize()
 	// BGM‚Ì“Ç‚Ýž‚Ý
 	back_bgm = rm->GetSounds("Resource/Sounds/BGM_MarioGround.wav");
 
-	PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
+	//PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
 	__super::Initialize();
 }
 
@@ -475,7 +475,7 @@ void InGameScene::DeleteStage()
 	{
 		for (int y = 0; y < object[x].size(); y++)
 		{
-			if (object[x][y] != nullptr && object[x][y]->GetLocation().x < camera->GetCameraLocation().x - (D_WIN_MAX_X / 2))
+			if (object[x][y] != nullptr && object[x][y]->GetLocation().x < camera->GetCameraLocation().x - (D_WIN_MAX_X / 1.9))
 			{
 				gm->DestroyGameObject(object[x][y]);
 				object[x][y] = nullptr;

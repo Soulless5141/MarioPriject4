@@ -61,6 +61,7 @@ void Player::Initialize()
 	g_velocity = 0;
 	velocity = Vector2D(0.0);
 	is_fly = FALSE;
+	reverse = FALSE;
 	// ‰Â“®«‚ÌÝ’è
 	is_mobility = eMobilityType::Movable;
 }
@@ -125,6 +126,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				{
 					location.y += diff.y;
 					is_fly = FALSE;
+					velocity.y = 0;
 				}
 			}
 			else
@@ -179,6 +181,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				{
 					location.y -= diff.y;
 					is_fly = FALSE;
+					velocity.y = 0;
 				}
 			}
 		}
@@ -222,19 +225,7 @@ void Player::Movement(float delta_second)
 	if (move_time >= (1.0f / 30.0f))
 	{*/
 	velocity.y += g_velocity;
-	if (velocity.x >= 0.5f)
-	{
-		velocity.x -= f_velocity;
-	}
-	else if (velocity.x <= -0.5f)
-	{
-		velocity.x += f_velocity;
-	}
-	else
-	{
-		velocity.x = 0.0f;
-		f_velocity = 0.0f;
-	}
+
 		
 
 	//ó‘Ô•Ê‚ÌXVˆ—‚ðs‚¤
@@ -247,7 +238,6 @@ void Player::Movement(float delta_second)
 	if (is_fly != TRUE)
 	{
 		g_velocity = 0.0f;
-		velocity.y = 0.0f;
 	}
 	if (0.0 >= location.x)
 	{
@@ -348,3 +338,7 @@ Vector2D& Player::GetLocation()
 	return this->location;
 }
 
+void Player::SetReverse(bool TF)
+{
+	reverse = TF;
+}

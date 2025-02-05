@@ -46,8 +46,8 @@ private:
 public:
 	Vector2D velocity = Vector2D(0.0f);
 	Vector2D box_size = Vector2D(0.0f);
-	float f_velocity = 0.0f;							//Œ¸‘¬‘¬“x
-	bool is_fly;					//‹ó’†‚É‚¢‚é‚©‚Ç‚¤‚©
+	float f_velocity = 0.0f;				//Œ¸‘¬‘¬“x
+	bool is_fly;							//‹ó’†‚É‚¢‚é‚©‚Ç‚¤‚©
                                    
 
 public:
@@ -108,4 +108,6 @@ public:
 	///À•W‚Ìæ“¾
 	/// </summary>
 	Vector2D& GetLocation();
+
+	void SetReverse(bool TF);
 };

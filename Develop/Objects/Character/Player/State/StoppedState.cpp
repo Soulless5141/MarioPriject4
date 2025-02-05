@@ -68,6 +68,19 @@ void StoppedState::Update()
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eSquat);
 	}
+	if (player->velocity.x >= 0.5f)
+	{
+		player->velocity.x -= player->f_velocity;
+	}
+	else if (player->velocity.x <= -0.5f)
+	{
+		player->velocity.x += player->f_velocity;
+	}
+	else
+	{
+		player->velocity.x = 0.0f;
+		player->f_velocity = 0.0f;
+	}
 }
 
 /// <summary>
