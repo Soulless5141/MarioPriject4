@@ -121,6 +121,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				if (diff.x <= diff.y)
 				{
 					location.x -= diff.x;
+					velocity.x = 0.0f;
 				}
 				else
 				{
@@ -136,9 +137,10 @@ void Player::OnHitCollision(GameObject* hit_object)
 					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
 
 				//‰Ÿ‚µ–ß‚µ
-				if (diff.x < diff.y)
+				if (-diff.x < diff.y)
 				{
 					location.x -= diff.x;
+					velocity.x = 0.0f;
 				}
 				else
 				{
@@ -239,6 +241,12 @@ void Player::Movement(float delta_second)
 	{
 		g_velocity = 0.0f;
 	}
+	//if (location.y >= 384.0f)
+	//{
+	//	location.y = 384.0f;
+	//	g_velocity = 0.0f;
+	//	velocity.y = 0.0f;
+	//}
 	if (0.0 >= location.x)
 	{
 		location.x = 0.0f;
