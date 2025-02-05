@@ -1,6 +1,7 @@
 #pragma once
 #include "Enum/PlayerState.h"
 
+#define D_GRAVITY (9.807f)     //重力加速度(m/ss)
 ///<summary>
 ///プレイヤー状態管理用のベースクラス
 ///<summary>

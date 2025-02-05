@@ -48,7 +48,7 @@ void InGameScene::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	GameObjectManager* gm = GameObjectManager::Get();
 
-	player = gm->CreateGameObject<Player>(Vector2D(100, 300));
+	player = gm->CreateGameObject<Player>(Vector2D(100, 384));
 
 	// マップデータ読み込み生成処理
 	LoadBackStageMapCSV();
@@ -97,8 +97,9 @@ void InGameScene::Draw()
 		}
 	}
 
-	DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0xff0000, false);
-	DrawFormatString(10,0, 0x000000, "%f", camera->GetCameraLocation().x);
+	// デバッグ用枠線だったもの
+	/*DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0xff0000, false);
+	DrawFormatString(10,0, 0x000000, "%f", camera->GetCameraLocation().x);*/
 
 	// 親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -141,19 +142,23 @@ void InGameScene::CheckCollision(GameObject* target, GameObject* partner)
 	// 当たり判定が有効か確認する
 	if (tc.IsCheckHitTarget(pc.object_type) || pc.IsCheckHitTarget(tc.object_type))
 	{
-
-		// 線分の始点と終点を設定する
+		// カプセル同士の当たり判定
 		tc.pivot = target->GetLocation();
 		pc.pivot = partner->GetLocation();
-
-		// カプセル同士の当たり判定
-		if (IsCheckCollision(tc, pc))
+		Vector2D distance = target->GetLocation() - partner->GetLocation();
+		Vector2D col_size = (tc.box_size + pc.box_size) / 2;
+		if (fabsf(distance.x) <= col_size.x && fabsf(distance.y) <= col_size.y)
 		{
-			// 当たっていることを通知する
-			partner->OnHitCollision(target);
 			target->OnHitCollision(partner);
-
+			partner->OnHitCollision(target);
 		}
+		//if (IsCheckCollision(tc, pc))
+		//{
+		//	// 当たっていることを通知する
+		//	partner->OnHitCollision(target);
+		//	target->OnHitCollision(partner);
+
+		//}
 	}
 }
 

@@ -64,7 +64,10 @@ void RunningState::Update()
 		//’â~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eIdle);
 	}
-
+	if (input->GetKey(KEY_INPUT_SPACE))
+	{
+		player->velocity.y -= (D_GRAVITY / 444.0f) / 1.2;
+	}
 	if (input->GetKeyDown(KEY_INPUT_SPACE) && player->velocity.x != 0)
 	{
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ
