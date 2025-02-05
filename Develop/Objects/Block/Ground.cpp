@@ -11,6 +11,7 @@ void Ground::Initialize()
 
 	// “–‚½‚è”»’è‚Ìİ’è
 	collision.is_blocking = true;
+	collision.box_size = 32.0f;
 	collision.object_type = eObjectType::eBlock;
 }
 

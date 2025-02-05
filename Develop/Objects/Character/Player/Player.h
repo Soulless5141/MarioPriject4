@@ -42,12 +42,12 @@ private:
 private:
 	class PlayerStateBase* state = nullptr;
 	float g_velocity = 0.0f;
-	bool is_fly;					//‹ó’†‚É‚¢‚é‚©‚Ç‚¤‚©
 
 public:
 	Vector2D velocity = Vector2D(0.0f);
 	Vector2D box_size = Vector2D(0.0f);
 	float f_velocity = 0.0f;							//Œ¸‘¬‘¬“x
+	bool is_fly;					//‹ó’†‚É‚¢‚é‚©‚Ç‚¤‚©
                                    
 
 public:
@@ -109,5 +109,3 @@ public:
 	/// </summary>
 	Vector2D& GetLocation();
 };
-
-

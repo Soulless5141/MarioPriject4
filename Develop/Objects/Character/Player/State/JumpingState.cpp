@@ -29,11 +29,12 @@ void JumpingState::Initialize()
 {
 	if (this->player->velocity.y == 0)
 	{
-		this->player->velocity.y -= 12.0f; //ƒWƒƒƒ“ƒv—Í
+		this->player->velocity.y -= 5.0f; //ƒWƒƒƒ“ƒv—Í
 	}
 	
 	ResourceManager* rm = ResourceManager::Get();
 	this->player->sound = rm->GetSounds("Resource/Sounds/SE_SuperJump.wav");
+	this->player->is_fly = TRUE;
 }
 
 /// <summary>
@@ -60,6 +61,10 @@ void JumpingState::Update()
 
 		//’âŽ~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eIdle);
+	}
+	if (input->GetKey(KEY_INPUT_SPACE))
+	{
+		player->velocity.y -= (D_GRAVITY / 444.0f) / 1.2;
 	}
 	if (input->GetKey(KEY_INPUT_A) || input->GetKey(KEY_INPUT_D))
 	{

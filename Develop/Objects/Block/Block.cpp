@@ -11,6 +11,7 @@ void Block::Initialize()
 	collision.is_blocking = true;
 	collision.object_type = eObjectType::eBlock;
 	collision.hit_object_type.push_back(eObjectType::ePlayer);
+	collision.box_size = 32.0f;
 }
 
 void Block::Draw(const Vector2D& screen_offset) const
