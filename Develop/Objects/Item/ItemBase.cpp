@@ -33,4 +33,5 @@ void ItemBase::Finalize()
 
 void ItemBase::OnHitCollision(GameObject* hit_object)
 {
+	
 }
