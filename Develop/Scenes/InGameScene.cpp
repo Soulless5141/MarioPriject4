@@ -97,6 +97,18 @@ void InGameScene::Draw()
 		}
 	}
 
+	DrawFormatString(520, 20, GetColor(255, 255, 255), "TIME");
+
+	DrawFormatString(420, 20, GetColor(255, 255, 255), "WORLD");
+
+	DrawFormatString(430, 40, GetColor(255, 255, 255), "1-1");
+
+	DrawFormatString(260, 40, GetColor(255, 255, 255), "× 00");
+
+	DrawFormatString(110, 20, GetColor(255, 255, 255), "MARIO");
+
+	DrawFormatString(110, 40, GetColor(255, 255, 255), "000000");
+
 	// デバッグ用枠線だったもの
 	/*DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0xff0000, false);
 	DrawFormatString(10,0, 0x000000, "%f", camera->GetCameraLocation().x);*/
