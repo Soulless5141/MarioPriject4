@@ -66,6 +66,12 @@ void JumpingState::Update()
 	{
 		player->velocity.y -= (D_GRAVITY / 444.0f) / 1.2;
 	}
+	else
+	{
+		//’â~ó‘Ô‚É‘JˆÚ
+		player->SetNextState(ePlayerState::eIdle);
+	
+	}
 	if (input->GetKey(KEY_INPUT_A) || input->GetKey(KEY_INPUT_D))
 	{
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ
