@@ -26,8 +26,9 @@ void Hatena::Draw(const Vector2D& screen_offset) const
 void Hatena::OnHitCollision(GameObject* hit_object)
 {
 	// 当たった、オブジェクトが壁だったら
-	if (hit_object->GetCollision().object_type == eObjectType::eBlock)
+	if (hit_object->GetCollision().object_type == eObjectType::ePlayer)
 	{
+		
 		//// 当たり判定情報を取得して、カプセルがある位置を求める
 		//Collision hc = hit_object->GetCollision();
 		//hc.point[0] += hit_object->GetLocation();

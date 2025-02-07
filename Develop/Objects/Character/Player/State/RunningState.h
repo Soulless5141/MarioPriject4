@@ -8,7 +8,7 @@
 class RunningState : public PlayerStateBase
 {
 private:
-
+	float accel_force;			//‰Á‘¬—Í
 
 public:
 	/// <summary>

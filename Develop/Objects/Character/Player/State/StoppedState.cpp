@@ -65,8 +65,21 @@ void StoppedState::Update()
 	//‚µ‚á‚ª‚Ýó‘Ô‚É‘JˆÚ
 	if (input->GetKey(KEY_INPUT_S))
 	{
-		//ˆÚ“®ó‘Ô‚É‘JˆÚ
+		//‚µ‚á‚ª‚Ýó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eSquat);
+	}
+	if (player->velocity.x >= 0.5f)
+	{
+		player->velocity.x -= player->f_velocity;
+	}
+	else if (player->velocity.x <= -0.5f)
+	{
+		player->velocity.x += player->f_velocity;
+	}
+	else
+	{
+		player->velocity.x = 0.0f;
+		player->f_velocity = 0.0f;
 	}
 }
 

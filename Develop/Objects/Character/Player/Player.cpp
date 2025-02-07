@@ -4,6 +4,7 @@
 
 #include "../../../Utility/InputManager.h"
 #include "State/Factory/PlayerStateFactory.h"
+#include "../../../Utility/Camera.h"
 #include "DxLib.h"
 
 #define D_PLAYER_SPEED	(50.0f)
@@ -61,6 +62,7 @@ void Player::Initialize()
 	g_velocity = 0;
 	velocity = Vector2D(0.0);
 	is_fly = FALSE;
+	reverse = FALSE;
 	// 可動性の設定
 	is_mobility = eMobilityType::Movable;
 }
@@ -120,11 +122,13 @@ void Player::OnHitCollision(GameObject* hit_object)
 				if (diff.x <= diff.y)
 				{
 					location.x -= diff.x;
+					velocity.x = 0.0f;
 				}
 				else
 				{
-					location.y += diff.y;
+					location.y -= diff.y;
 					is_fly = FALSE;
+					velocity.y = 0;
 				}
 			}
 			else
@@ -137,10 +141,11 @@ void Player::OnHitCollision(GameObject* hit_object)
 				if (diff.x < diff.y)
 				{
 					location.x -= diff.x;
+					velocity.x = 0.0f;
 				}
 				else
 				{
-					location.y -= diff.y;
+					location.y -=  diff.y;
 					velocity = 0.0f;
 				}
 
@@ -160,7 +165,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				}
 				else
 				{
-					location.y -= collision.box_size.x - diff.y;
+					location.y -= diff.y;
 					velocity = 0.0f;
 				}
 			}
@@ -179,6 +184,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				{
 					location.y -= diff.y;
 					is_fly = FALSE;
+					velocity.y = 0;
 				}
 			}
 		}
@@ -211,6 +217,7 @@ void Player::SetDefoltX()
 /// <param name="delta_second">1フレームあたりの時間</param>
 void Player::Movement(float delta_second)
 {
+	Camera* camera = Camera::Get();
 	// stateの変更処理
 	state = PlayerStateFactory::Get((*this), player_state);
 
@@ -222,19 +229,7 @@ void Player::Movement(float delta_second)
 	if (move_time >= (1.0f / 30.0f))
 	{*/
 	velocity.y += g_velocity;
-	if (velocity.x >= 0.5f)
-	{
-		velocity.x -= f_velocity;
-	}
-	else if (velocity.x <= -0.5f)
-	{
-		velocity.x += f_velocity;
-	}
-	else
-	{
-		velocity.x = 0.0f;
-		f_velocity = 0.0f;
-	}
+
 		
 
 	//状態別の更新処理を行う
@@ -247,12 +242,18 @@ void Player::Movement(float delta_second)
 	if (is_fly != TRUE)
 	{
 		g_velocity = 0.0f;
-		velocity.y = 0.0f;
 	}
-	if (0.0 >= location.x)
+	if (location.x < camera->GetCameraLocation().x - (D_WIN_MAX_X / 2.5))
 	{
-		location.x = 0.0f;
+		location.x = camera->GetCameraLocation().x - (D_WIN_MAX_X / 2.5);
+		velocity.x = 0;
 	}
+	//if (location.y >= 384.0f)
+	//{
+	//	location.y = 384.0f;
+	//	g_velocity = 0.0f;
+	//	velocity.y = 0.0f;
+	//}
 }
 
 /// <summary>
@@ -348,3 +349,7 @@ Vector2D& Player::GetLocation()
 	return this->location;
 }
 
+void Player::SetReverse(bool TF)
+{
+	reverse = TF;
+}

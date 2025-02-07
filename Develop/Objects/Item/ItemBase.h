@@ -2,10 +2,11 @@
 #include "../../Objects/GameObject.h"
 #include "../Character/Player/Player.h"
 
+#define ITEM_SPEED (20)
+
 class ItemBase : public GameObject
 {
 private:
-
 	Player* player;
 
 public:

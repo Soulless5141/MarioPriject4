@@ -4,8 +4,13 @@
 
 class Kinoko : public ItemBase
 {
+private:
+	float g_velocity = 0.0f;
+	Vector2D velocity = Vector2D(0.0f);
+
 public:
 	std::vector<int> kinoko_animation;
+	
 
 	Kinoko();
 	virtual ~Kinoko();
@@ -28,10 +33,6 @@ private:
 	/// </summary>
 	/// <param name="delta_second">1フレームあたりの時間</param>
 	void Movement(float delta_second);
-	/// <summary>
-	/// アニメーション制御
-	/// </summary>
-	/// <param name="delta_second">1フレームあたりの時間</param>
-	void AnimationControl(float delta_second);
+
 };
 

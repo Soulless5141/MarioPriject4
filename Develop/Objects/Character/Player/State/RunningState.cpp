@@ -4,6 +4,8 @@
 #include "../../../../Utility/InputManager.h"
 #include "../Player.h"
 
+#define MAX_SPEED (4.0f);
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -31,6 +33,7 @@ void RunningState::Initialize()
 	{
 		this->player->SetDefoltX();
 	}
+	accel_force = 0.0f;
 }
 
 /// <summary>
@@ -48,21 +51,59 @@ void RunningState::Update()
 {
 	//左右入力があるなら
 	InputManager* input = InputManager::Get();
-
+	accel_force = FRICTION / 444.0f;
 	if (input->GetKey(KEY_INPUT_A))
 	{
-		player->velocity.x = -4.0f; //移動力
+		player->SetReverse(TRUE);
+		if (input->GetKey(KEY_INPUT_LSHIFT))
+		{
+			if (player->velocity.x > -8.0f)
+			{
+				player->velocity.x -= accel_force;
+			}
+		}
+		else
+		{
+			if (player->velocity.x > -4.0f)
+			{
+				player->velocity.x -= accel_force;
+			}
+			else
+			{
+				player->velocity.x += accel_force;
+			}
+		}
 		player->f_velocity = 0.0f;
 	}
 	else if (input->GetKey(KEY_INPUT_D))
 	{
-		player->velocity.x = 4.0f; //移動力
+		player->SetReverse(FALSE);
+		if (input->GetKey(KEY_INPUT_LSHIFT))
+		{
+			if (player->velocity.x < 8.0f)
+			{
+				player->velocity.x += accel_force;
+			}
+		}
+		else
+		{
+			if (player->velocity.x < 4.0f)
+			{
+				player->velocity.x += accel_force;
+			}
+			else
+			{
+				player->velocity.x -= accel_force;
+			}
+		}
+
 		player->f_velocity = 0.0f;
 	}
 	else
 	{
 		//停止状態に遷移
 		player->SetNextState(ePlayerState::eIdle);
+		accel_force = 0.0f;
 	}
 	if (input->GetKey(KEY_INPUT_SPACE))
 	{
