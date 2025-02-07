@@ -4,6 +4,7 @@
 
 #include "../../../Utility/InputManager.h"
 #include "State/Factory/PlayerStateFactory.h"
+#include "../../../Utility/Camera.h"
 #include "DxLib.h"
 
 #define D_PLAYER_SPEED	(50.0f)
@@ -125,7 +126,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				}
 				else
 				{
-					location.y += diff.y;
+					location.y -= diff.y;
 					is_fly = FALSE;
 					velocity.y = 0;
 				}
@@ -137,14 +138,14 @@ void Player::OnHitCollision(GameObject* hit_object)
 					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
 
 				//‰Ÿ‚µ–ß‚µ
-				if (-diff.x < diff.y)
+				if (diff.x < diff.y)
 				{
 					location.x -= diff.x;
 					velocity.x = 0.0f;
 				}
 				else
 				{
-					location.y -= diff.y;
+					location.y -=  diff.y;
 					velocity = 0.0f;
 				}
 
@@ -164,7 +165,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				}
 				else
 				{
-					location.y -= collision.box_size.x - diff.y;
+					location.y -= diff.y;
 					velocity = 0.0f;
 				}
 			}
@@ -216,6 +217,7 @@ void Player::SetDefoltX()
 /// <param name="delta_second">1ƒtƒŒ[ƒ€‚ ‚½‚è‚ÌŠÔ</param>
 void Player::Movement(float delta_second)
 {
+	Camera* camera = Camera::Get();
 	// state‚Ì•ÏXˆ—
 	state = PlayerStateFactory::Get((*this), player_state);
 
@@ -241,16 +243,17 @@ void Player::Movement(float delta_second)
 	{
 		g_velocity = 0.0f;
 	}
+	if (location.x < camera->GetCameraLocation().x - (D_WIN_MAX_X / 2.5))
+	{
+		location.x = camera->GetCameraLocation().x - (D_WIN_MAX_X / 2.5);
+		velocity.x = 0;
+	}
 	//if (location.y >= 384.0f)
 	//{
 	//	location.y = 384.0f;
 	//	g_velocity = 0.0f;
 	//	velocity.y = 0.0f;
 	//}
-	if (0.0 >= location.x)
-	{
-		location.x = 0.0f;
-	}
 }
 
 /// <summary>
