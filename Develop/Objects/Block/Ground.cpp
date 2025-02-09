@@ -10,7 +10,7 @@ void Ground::Initialize()
 	image = rm->GetImages("Resource/Images/Block/floor.png", 1, 1, 1, 32, 32)[0];
 
 	// “–‚½‚è”»’è‚Ìİ’è
-	collision.is_blocking = true;
+
 	collision.box_size = 32.0f;
 	collision.object_type = eObjectType::eBlock;
 }

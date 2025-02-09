@@ -64,7 +64,7 @@ void Player::Initialize()
 	is_fly = FALSE;
 	reverse = FALSE;
 	// ‰Â“®«‚Ìİ’è
-	is_mobility = eMobilityType::Movable;
+	
 }
 
 void Player::Update(float delta_second)

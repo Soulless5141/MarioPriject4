@@ -4,7 +4,7 @@ void Goal::Initialize()
 {
 	SetImages();
 	// “–‚½‚è”»’è‚Ìİ’è
-	collision.is_blocking = true;
+
 	collision.box_size = 32.0f;
 	collision.object_type = eObjectType::eBlock;
 	collision.hit_object_type.push_back(eObjectType::ePlayer);

@@ -7,7 +7,7 @@ void Dokan_Right_Up::Initialize()
 	image = rm->GetImages("Resource/Images/dokan_right_up.png", 1, 1, 1, 32, 32)[0];
 
 	// “–‚½‚è”»’è‚Ìİ’è
-	collision.is_blocking = true;
+
 	collision.box_size = 32.0f;
 	collision.object_type = eObjectType::eBlock;
 	collision.hit_object_type.push_back(eObjectType::ePlayer);

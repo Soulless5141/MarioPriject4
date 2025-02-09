@@ -25,6 +25,7 @@ public:
 	GameObjectManager* gm = GameObjectManager::Get();
 	Vector2D	screen_offset;	// スクリーンオフセット
 	std::vector<GameObject*> game_objects_list;
+	Collision object_col;
 
 public:
 	SceneBase() :
@@ -71,11 +72,12 @@ public:
 		// 当たり判定確認処理
 		for (int i = 0; i < game_objects_list.size(); i++)
 		{
-			if (eMobilityType::Stationary == game_objects_list[i]->GetMobility())
+			object_col = game_objects_list[i]->GetCollision();
+			if (object_col.is_blocking == false)
 			{
 				continue;
 			}
-
+			
 			for (int j = 0; j < game_objects_list.size(); j++)
 			{
 				if (i == j)
