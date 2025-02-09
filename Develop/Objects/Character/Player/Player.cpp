@@ -127,7 +127,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					location.y -= diff.y;
-					is_fly = FALSE;
+					is_fly = false;
 					velocity.y = 0;
 				}
 			}
@@ -183,7 +183,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					location.y -= diff.y;
-					is_fly = FALSE;
+					is_fly = false;
 					velocity.y = 0;
 				}
 			}
@@ -239,7 +239,7 @@ void Player::Movement(float delta_second)
 	location += velocity * D_PLAYER_SPEED * delta_second;
 
 	//384.0f’n“_‚ð’n–Ê‚Æ‰¼’è
-	if (is_fly != TRUE)
+	if (is_fly != true)
 	{
 		g_velocity = 0.0f;
 	}
@@ -325,7 +325,7 @@ void Player::AnimationControl(float delta_second)
 		break;
 	}
 
-	if (is_fly == TRUE)
+	if (is_fly == true)
 	{
 		image = mario_animation[5];
 	}

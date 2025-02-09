@@ -54,7 +54,7 @@ void RunningState::Update()
 	accel_force = FRICTION / 444.0f;
 	if (input->GetKey(KEY_INPUT_A))
 	{
-		player->SetReverse(TRUE);
+		player->SetReverse(true);
 		if (input->GetKey(KEY_INPUT_LSHIFT))
 		{
 			if (player->velocity.x > -8.0f)
@@ -77,7 +77,7 @@ void RunningState::Update()
 	}
 	else if (input->GetKey(KEY_INPUT_D))
 	{
-		player->SetReverse(FALSE);
+		player->SetReverse(false);
 		if (input->GetKey(KEY_INPUT_LSHIFT))
 		{
 			if (player->velocity.x < 8.0f)

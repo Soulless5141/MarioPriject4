@@ -54,7 +54,7 @@ void JumpingState::Update()
 	InputManager* input = InputManager::Get();
 
 	//’n–Ê‚ÉG‚ê‚½‚ç
-	if (player->velocity.y >= 0)
+	if (player->is_fly == false)
 	{
 		//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
 		InputManager* input = InputManager::Get();
