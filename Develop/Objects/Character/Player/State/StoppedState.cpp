@@ -48,6 +48,7 @@ void StoppedState::Finalize()
 /// </summary>
 void StoppedState::Update()
 {
+
 	//ˆÚ“®ó‘Ô‚É‘JˆÚ
 	if (input->GetKey(KEY_INPUT_A) || input->GetKey(KEY_INPUT_D))
 	{

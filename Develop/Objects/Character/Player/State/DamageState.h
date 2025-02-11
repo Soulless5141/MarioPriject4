@@ -3,24 +3,24 @@
 #include "../../../../Utility/Vector2D.h"
 
 /// <summary>
-/// ジャンプ状態
+/// ダメージ状態
 /// </summary>
-class JumpingState : public PlayerStateBase
+class DamageState : public PlayerStateBase
 {
 private:
+	float accel_force;
 	//入力情報
 	class InputManager* input;
-
 
 public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="p">プレイヤー情報</param>
-	JumpingState(class Player* p);
+	DamageState(class Player* p);
 
 	//デストラクタ
-	virtual ~JumpingState();
+	virtual ~DamageState();
 
 public:
 	//初期化処理関数

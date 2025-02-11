@@ -1,16 +1,15 @@
-#include "RunningState.h"
+#include "DamageState.h"
 
 #include "DxLib.h"
 #include "../Player.h"
-
-#define MAX_SPEED (4.0f);
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 /// <param name="p">プレイヤー情報</param>
-RunningState::RunningState(class Player* p)
+DamageState::DamageState(class Player* p)
 	: PlayerStateBase(p)
+	, input(nullptr)
 {
 
 }
@@ -18,7 +17,7 @@ RunningState::RunningState(class Player* p)
 /// <summary>
 /// デストラクタ
 /// </summary>
-RunningState::~RunningState()
+DamageState::~DamageState()
 {
 
 }
@@ -26,13 +25,15 @@ RunningState::~RunningState()
 /// <summary>
 /// 初期化処理
 /// </summary>
-void RunningState::Initialize()
+void DamageState::Initialize()
 {
-	if (this->player->velocity.x == 0)
+	if (player->damage_time == 0)
 	{
-		this->player->SetDefoltX();
+		player->damage_time = 1.0f;
 	}
-	accel_force = 0.0f;
+	//Boxのサイズを設定する
+	player->box_size = Vector2D(32.0f);
+
 	//入力情報を取得
 	input = InputManager::Get();
 }
@@ -40,7 +41,7 @@ void RunningState::Initialize()
 /// <summary>
 /// 終了処理
 /// </summary>
-void RunningState::Finalize()
+void DamageState::Finalize()
 {
 
 }
@@ -48,7 +49,7 @@ void RunningState::Finalize()
 /// <summary>
 /// 更新処理
 /// </summary>
-void RunningState::Update()
+void DamageState::Update()
 {
 	accel_force = FRICTION / 444.0f;
 	if (input->GetKey(KEY_INPUT_A))
@@ -100,8 +101,19 @@ void RunningState::Update()
 	}
 	else
 	{
-		//停止状態に遷移
-		player->SetNextState(ePlayerState::eIdle);
+		if (player->velocity.x >= 0.5f)
+		{
+			player->velocity.x -= player->f_velocity;
+		}
+		else if (player->velocity.x <= -0.5f)
+		{
+			player->velocity.x += player->f_velocity;
+		}
+		else
+		{
+			player->velocity.x = 0.0f;
+			player->f_velocity = 0.0f;
+		}
 		accel_force = 0.0f;
 	}
 	if (input->GetKey(KEY_INPUT_SPACE))
@@ -113,27 +125,31 @@ void RunningState::Update()
 		//移動状態に遷移
 		player->SetNextState(ePlayerState::eJump);
 	}
+	if (player->damage_time <= 0.5f)
+	{
+		player->SetNextState(ePlayerState::eIdle);
+	}
 }
 
 /// <summary>
 /// 描画処理
 /// </summary>
-void RunningState::Draw() const
+void DamageState::Draw() const
 {
 	//座標情報を整数値に変換
 	int x = 0, y = 0;
 	player->GetLocation().ToInt(&x, &y);
 
 	//描画
-	DrawBox(x, y, x + (int)(player->box_size.x), y + (int)(player->box_size.y),
-		GetColor(255, 0, 0), TRUE);
+	/*DrawBox(x, y, x + (int)(player->box_size.x), y + (int)(player->box_size.y),
+		GetColor(255, 0, 0), TRUE);*/
 }
 
 /// <summary>
 /// 現在のステート情報を取得する
 /// </summary>
 /// <returns>現在のステート情報</returns>
-ePlayerState RunningState::GetState() const
+ePlayerState DamageState::GetState() const
 {
-	return ePlayerState::eRun;
+	return ePlayerState::eDamage;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Enum/PlayerState.h"
+#include "../../../../Utility/InputManager.h"
 
 #define D_GRAVITY (9.807f)     //d—Í‰Á‘¬“x(m/ss)
 ///<summary>

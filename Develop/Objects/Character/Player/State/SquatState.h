@@ -9,7 +9,8 @@
 class SquatState : public PlayerStateBase
 {
 private:
-	//前フレームの座標情報
+	//入力情報
+	class InputManager* input;
 
 
 public:

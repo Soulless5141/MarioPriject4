@@ -7,6 +7,12 @@ void kuribo::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	animation = rm->GetImages("Resource/Images/Enemy/kuribo.png", 3, 3, 1, 32, 32);
 	image = animation[0];
+	collision.is_blocking = true;
+	collision.box_size = 32.0f;
+	collision.pivot = location;
+	collision.object_type = eObjectType::eEnemy;
+	collision.hit_object_type.push_back(eObjectType::ePlayer);
+	collision.hit_object_type.push_back(eObjectType::eBlock);
 }
 /// <summary>
 /// çXêVèàóù

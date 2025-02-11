@@ -1,7 +1,6 @@
 #include "SquatState.h"
 
 #include "DxLib.h"
-#include "../../../../Utility/InputManager.h"
 #include "../Player.h"
 
 /// <summary>
@@ -28,6 +27,8 @@ SquatState::~SquatState()
 void SquatState::Initialize()
 {
 	ResourceManager* rm = ResourceManager::Get();
+	//“ü—Íî•ñ‚ğæ“¾
+	input = InputManager::Get();
 }
 
 /// <summary>
@@ -43,18 +44,14 @@ void SquatState::Finalize()
 /// </summary>
 void SquatState::Update()
 {
-	//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
-	InputManager* input = InputManager::Get();
 
 	//’n–Ê‚ÉG‚ê‚½‚ç
 	if (player->velocity.y >= 0)
 	{
-		//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
-		InputManager* input = InputManager::Get();
 
 		if (input->GetKey(KEY_INPUT_S))
 		{
-			
+			player->SetNextState(ePlayerState::eSquat);
 		}
 
 		//’â~ó‘Ô‚É‘JˆÚ

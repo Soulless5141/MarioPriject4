@@ -7,6 +7,14 @@ void Nokonoko::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	animation = rm->GetImages("Resource/Images/Enemy/nokonoko.png", 2, 2, 1, 32, 64);
 	image = animation[0];
+
+	collision.is_blocking = true;
+	collision.box_size = Vector2D(64.0f,32.0f);
+	collision.pivot = location;
+	collision.object_type = eObjectType::eEnemy;
+	collision.hit_object_type.push_back(eObjectType::ePlayer);
+	collision.hit_object_type.push_back(eObjectType::eBlock);
+	location.y -= collision.box_size.y/2;
 }
 /// <summary>
 /// çXêVèàóù

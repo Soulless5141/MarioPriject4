@@ -48,6 +48,7 @@ public:
 	Vector2D box_size = Vector2D(0.0f);
 	float f_velocity = 0.0f;				//減速速度
 	bool is_fly;							//空中にいるかどうか
+	float damage_time;						//ダメージを受けた際無敵になっている時間
                                    
 
 public:

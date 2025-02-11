@@ -1,7 +1,6 @@
 #include "JumpingState.h"
 
 #include "DxLib.h"
-#include "../../../../Utility/InputManager.h"
 #include "../Player.h"
 
 /// <summary>
@@ -35,6 +34,7 @@ void JumpingState::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	this->player->sound = rm->GetSounds("Resource/Sounds/SE_SuperJump.wav");
 	this->player->is_fly = TRUE;
+	input = InputManager::Get();
 }
 
 /// <summary>
@@ -50,28 +50,24 @@ void JumpingState::Finalize()
 /// </summary>
 void JumpingState::Update()
 {
-	//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
-	InputManager* input = InputManager::Get();
+
 
 	//’n–Ê‚ÉG‚ê‚½‚ç
 	if (player->is_fly == false)
 	{
-		//¶‰E“ü—Í‚ª‚ ‚é‚È‚ç
-		InputManager* input = InputManager::Get();
-
 		//’â~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eIdle);
 	}
-	if (input->GetKey(KEY_INPUT_SPACE))
-	{
-		player->velocity.y -= (D_GRAVITY / 444.0f) / 1.2;
-	}
-	else
-	{
-		//’â~ó‘Ô‚É‘JˆÚ
-		player->SetNextState(ePlayerState::eIdle);
-	
-	}
+	//if (input->GetKey(KEY_INPUT_SPACE))
+	//{
+	//	player->velocity.y -= (D_GRAVITY / 444.0f) / 1.2;
+	//}
+	//else
+	//{
+	//	//’â~ó‘Ô‚É‘JˆÚ
+	//	player->SetNextState(ePlayerState::eIdle);
+	//
+	//}
 	if (input->GetKey(KEY_INPUT_A) || input->GetKey(KEY_INPUT_D))
 	{
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ

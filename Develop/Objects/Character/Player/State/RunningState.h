@@ -9,6 +9,8 @@ class RunningState : public PlayerStateBase
 {
 private:
 	float accel_force;			//‰Á‘¬—Í
+	//“ü—Íî•ñ
+	class InputManager* input;
 
 public:
 	/// <summary>

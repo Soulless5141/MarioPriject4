@@ -18,6 +18,7 @@ private:
 	class JumpingState* jump;
 	class RunningState* run;
 	class SquatState* squat;
+	class DamageState* damage;
 
 private:
 	void Initialize(class Player& player);
