@@ -35,6 +35,7 @@ void JumpingState::Initialize()
 	this->player->sound = rm->GetSounds("Resource/Sounds/SE_SuperJump.wav");
 	this->player->is_fly = TRUE;
 	input = InputManager::Get();
+	PlaySoundMem(player->sound, DX_PLAYTYPE_BACK);
 }
 
 /// <summary>
@@ -58,16 +59,16 @@ void JumpingState::Update()
 		//’â~ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eIdle);
 	}
-	//if (input->GetKey(KEY_INPUT_SPACE))
-	//{
-	//	player->velocity.y -= (D_GRAVITY / 444.0f) / 1.2;
-	//}
-	//else
-	//{
-	//	//’â~ó‘Ô‚É‘JˆÚ
-	//	player->SetNextState(ePlayerState::eIdle);
-	//
-	//}
+	if (input->GetKey(KEY_INPUT_SPACE))
+	{
+		player->velocity.y -= (D_GRAVITY / 444.0f) / 1.2;
+	}
+	else
+	{
+		//’â~ó‘Ô‚É‘JˆÚ
+		player->SetNextState(ePlayerState::eIdle);
+	
+	}
 	if (input->GetKey(KEY_INPUT_A) || input->GetKey(KEY_INPUT_D))
 	{
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ

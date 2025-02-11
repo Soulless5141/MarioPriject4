@@ -147,7 +147,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 					location.x -= diff.x;
 					velocity.x = 0.0f;
 				}
-				else
+				else if(diff.x != 0.0f)
 				{
 					location.y -=  diff.y;
 					velocity = 0.0f;
@@ -213,7 +213,6 @@ void Player::OnHitCollision(GameObject* hit_object)
 				}
 				else
 				{
-					location.y -= diff.y;
 					g_velocity = 0.0f;
 					velocity.y -= 3.0f;
 				}
@@ -250,7 +249,6 @@ void Player::OnHitCollision(GameObject* hit_object)
 				}
 				else
 				{
-					location.y -= diff.y;
 					g_velocity = 0.0f;
 					velocity.y -= 3.0f;
 				}
@@ -382,7 +380,6 @@ void Player::AnimationControl(float delta_second)
 
 		break;
 	case ePlayerState::eJump:
-		PlaySoundMem(sound, DX_PLAYTYPE_BACK);
 		break;
 	case ePlayerState::eSquat:
 		break;
