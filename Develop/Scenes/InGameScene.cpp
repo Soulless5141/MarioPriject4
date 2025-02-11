@@ -57,7 +57,7 @@ void InGameScene::Initialize()
 	// BGM‚Ì“Ç‚Ýž‚Ý
 	back_bgm = rm->GetSounds("Resource/Sounds/BGM_MarioGround.wav");
 
-	//PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
+	PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
 	__super::Initialize();
 }
 
