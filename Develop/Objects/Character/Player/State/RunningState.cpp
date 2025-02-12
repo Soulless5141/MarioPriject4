@@ -3,7 +3,7 @@
 #include "DxLib.h"
 #include "../Player.h"
 
-#define MAX_SPEED (4.0f);
+#define MAX_SPEED (4.0f)
 
 /// <summary>
 /// コンストラクタ
@@ -56,14 +56,14 @@ void RunningState::Update()
 		player->SetReverse(true);
 		if (input->GetKey(KEY_INPUT_LSHIFT))
 		{
-			if (player->velocity.x > -8.0f)
+			if (player->velocity.x > (-MAX_SPEED * 1.75f))
 			{
 				player->velocity.x -= accel_force;
 			}
 		}
 		else
 		{
-			if (player->velocity.x > -4.0f)
+			if (player->velocity.x > -MAX_SPEED)
 			{
 				player->velocity.x -= accel_force;
 			}
@@ -79,14 +79,14 @@ void RunningState::Update()
 		player->SetReverse(false);
 		if (input->GetKey(KEY_INPUT_LSHIFT))
 		{
-			if (player->velocity.x < 8.0f)
+			if (player->velocity.x < (MAX_SPEED * 1.75f))
 			{
 				player->velocity.x += accel_force;
 			}
 		}
 		else
 		{
-			if (player->velocity.x < 4.0f)
+			if (player->velocity.x < MAX_SPEED)
 			{
 				player->velocity.x += accel_force;
 			}

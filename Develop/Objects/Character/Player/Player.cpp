@@ -43,7 +43,7 @@ void Player::Initialize()
 	mario_animation = rm->GetImages("Resource/Images/Mario/mario.png", 9, 9, 1, 32, 32);
 	//starmario_animation = rm->GetImages("Resource/Images/Mario/starmario.png", 11, 11, 1, 32, 32);
 	//starsmallmario_animation = rm->GetImages("Resource/Images/Mario/starsmallmario.png", 11, 11, 1, 32, 32);
-
+	player_mode = ePlayerMode::MARIO;
 	// 当たり判定の設定
 	collision.is_blocking = true;
 	collision.object_type = eObjectType::ePlayer;
@@ -52,7 +52,7 @@ void Player::Initialize()
 	collision.hit_object_type.push_back(eObjectType::eEnemy);
 	collision.hit_object_type.push_back(eObjectType::eBlock);
 
-	player_mode = ePlayerMode::MARIO;
+
 	// 初期のアニメーション
 	image = mario_animation[0];
 
@@ -133,12 +133,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 				diff = (this->location + collision.box_size / 2) - (hit_object->GetLocation() - oc.box_size / 2);
 				
 				//押し戻し
-				if (diff.x <= diff.y)
+				if (diff.x <= diff.y && diff.x != 0.0f)
 				{
 					location.x -= diff.x;
 					velocity.x = 0.0f;
 				}
-				else
+				else if(diff.x != 0.0f)
 				{
 					location.y -= diff.y;
 					is_fly = false;
@@ -152,12 +152,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
 
 				//押し戻し
-				if (diff.x > diff.y && diff.x != 0.0f)
+				if (diff.x > diff.y)
 				{
 					location.x -= diff.x;
 					velocity.x = 0.0f;
 				}
-				else 
+				else if(diff.x != 0.0f)
 				{
 					location.y -=  diff.y;
 					velocity = 0.0f;

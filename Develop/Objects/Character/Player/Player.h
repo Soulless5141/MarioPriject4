@@ -4,7 +4,7 @@
 #include "../Enemy/EnemyBase.h"
 #include "State/Enum/PlayerState.h"
 
-#define FRICTION (3.612)		//–€C—Í
+#define FRICTION (4.824)		//–€C—Í
 
 // ƒvƒŒƒCƒ„[ó‘Ô
 enum ePlayerMode
