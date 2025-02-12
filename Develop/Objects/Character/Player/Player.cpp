@@ -21,7 +21,7 @@ Player::Player() :
 	player_state(ePlayerState::eIdle),
 	animation_time(0.0f),
 	animation_count(0),
-	power_up_time(0),
+	power_upanddown_time(0),
 	enemy(NULL),
 	move_time(0)
 {
@@ -71,7 +71,7 @@ void Player::Initialize()
 
 void Player::Update(float delta_second)
 {
-	if (power_up_time <= 0.0f)
+	if (power_upanddown_time <= 0.0f)
 	{
 		//ˆÚ“®ˆ—
 		Movement(delta_second);
@@ -85,7 +85,7 @@ void Player::Update(float delta_second)
 			damage_time = 0.0f;
 		}
 
-		power_up_time = 0.0f;
+		power_upanddown_time = 0.0f;
 	}
 	else
 	{
@@ -152,12 +152,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
 
 				//‰Ÿ‚µ–ß‚µ
-				if (diff.x < diff.y)
+				if (diff.x > diff.y && diff.x != 0.0f)
 				{
 					location.x -= diff.x;
 					velocity.x = 0.0f;
 				}
-				else if(diff.x != 0.0f)
+				else 
 				{
 					location.y -=  diff.y;
 					velocity = 0.0f;
@@ -219,7 +219,15 @@ void Player::OnHitCollision(GameObject* hit_object)
 				//‰Ÿ‚µ–ß‚µ
 				if (diff.x <= diff.y)
 				{
-					player_state = ePlayerState::eDamage;
+					if (player_mode != ePlayerMode::MARIO)
+					{
+
+					}
+					else
+					{
+						player_state = ePlayerState::eDamage;
+					}
+
 				}
 				else
 				{
@@ -274,7 +282,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 			collision.box_size.y = 64.0f;
 			player_mode = ePlayerMode::DEKAMARIO;
 
-			power_up_time = 0.5f;
+			power_upanddown_time = 0.5f;
 		}
 	}
 }
@@ -432,16 +440,14 @@ void Player::AnimationControl(float delta_second)
 	case ePlayerState::eJump:
 		break;
 	case ePlayerState::eSquat:
-		break;
-	case ePlayerState::eDamage:
 		switch (player_mode)
 		{
 		case DEKAMARIO:
+			image = dekamario_animation[1];
 			break;
 		case FAIYAMARIO:
 			break;
 		case MARIO:
-			image = mario_animation[6];
 			break;
 		case STARMARIO:
 			break;
@@ -450,6 +456,9 @@ void Player::AnimationControl(float delta_second)
 		default:
 			break;
 		}
+		break;
+	case ePlayerState::eDamage:
+		image = mario_animation[6];
 		break;
 	case ePlayerState::eGoal:
 		break;
@@ -483,7 +492,7 @@ void Player::AnimationControl(float delta_second)
 
 void Player::PowerUpAnim(float delta_second)
 {
-	power_up_time -= delta_second;
+	power_upanddown_time -= delta_second;
 	animation_time += delta_second;
 	if (animation_time >= (1.0f / 32.0f))
 	{
@@ -523,5 +532,5 @@ void Player::SetReverse(bool TF)
 
 float Player::GetPowerUpTime()
 {
-	return this->power_up_time;
+	return this->power_upanddown_time;
 }

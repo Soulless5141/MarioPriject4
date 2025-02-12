@@ -4,6 +4,8 @@
 #include "../Utility/Camera.h"
 #include "../Utility/ResourceManager.h"
 
+#define D_GRAVITY (9.807f)     //d—Í‰Á‘¬“x(m/ss)
+
 /// <summary>
 /// ‰Â“®«‚Ìí—Ş
 /// </summary>

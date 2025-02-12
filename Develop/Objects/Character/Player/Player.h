@@ -36,7 +36,7 @@ private:
 	int animation_count;					// アニメーション添字
 	float move_time;
 	const int animation_num[4] = { 1,2,3,2 };
-	float power_up_time;						// パワーアップ時間
+	float power_upanddown_time;						// パワーアップ時間
 
 private:
 	class PlayerStateBase* state = nullptr;
@@ -97,7 +97,17 @@ private:
 	/// <param name="delta_second">1フレームあたりの時間</param>
 	void AnimationControl(float delta_second);
 
+	/// <summary>
+	/// パワーアップ時のアニメーション制御
+	/// </summary>
+	/// <param name="delta_second"></param>
 	void PowerUpAnim(float delta_second);
+
+	/// <summary>
+	/// powerダウン時のアニメーション制御
+	/// </summary>
+	/// <param name="delta_second"></param>
+	void PowerDownAnim(float delta_second);
 
 public:
 	/// <summary>

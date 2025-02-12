@@ -29,6 +29,11 @@ void SquatState::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	//“ü—Íî•ñ‚ðŽæ“¾
 	input = InputManager::Get();
+	if (player->GetPlayerMode() == ePlayerMode::DEKAMARIO)
+	{
+		player->box_size.y = 32.0f;
+	}
+
 }
 
 /// <summary>
@@ -53,14 +58,31 @@ void SquatState::Update()
 		{
 			player->SetNextState(ePlayerState::eSquat);
 		}
-
-		//’âŽ~ó‘Ô‚É‘JˆÚ
-		player->SetNextState(ePlayerState::eIdle);
+		else
+		{
+			//’âŽ~ó‘Ô‚É‘JˆÚ
+			
+			player->SetNextState(ePlayerState::eIdle);
+		}
 	}
 	if (input->GetKey(KEY_INPUT_A) || input->GetKey(KEY_INPUT_D))
 	{
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eRun);
+	}
+
+	if (player->velocity.x >= 0.5f)
+	{
+		player->velocity.x -= player->f_velocity;
+	}
+	else if (player->velocity.x <= -0.5f)
+	{
+		player->velocity.x += player->f_velocity;
+	}
+	else
+	{
+		player->velocity.x = 0.0f;
+		player->f_velocity = 0.0f;
 	}
 
 }
