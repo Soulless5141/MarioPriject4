@@ -48,6 +48,14 @@ void InGameScene::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	GameObjectManager* gm = GameObjectManager::Get();
 
+	ui_time = rm->GetImages("Resource/Images/UI/time.png")[0];
+
+	ui_world = rm->GetImages("Resource/Images/UI/world.png")[0];
+
+	ui_coin_1_score = rm->GetImages("Resource/Images/UI/uicoin_1.png")[0];
+
+	ui_mario_score = rm->GetImages("Resource/Images/UI/name_mario.png")[0];
+
 	player = gm->CreateGameObject<Player>(Vector2D(100, 384));
 
 	// マップデータ読み込み生成処理
@@ -57,7 +65,7 @@ void InGameScene::Initialize()
 	// BGMの読み込み
 	back_bgm = rm->GetSounds("Resource/Sounds/BGM_MarioGround.wav");
 
-	PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
+	//PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
 	__super::Initialize();
 }
 
@@ -97,17 +105,14 @@ void InGameScene::Draw()
 		}
 	}
 
-	DrawFormatString(520, 20, GetColor(255, 255, 255), "TIME");
+	DrawExtendGraph(510, 20, 580, 42, ui_time, TRUE);
 
-	DrawFormatString(420, 20, GetColor(255, 255, 255), "WORLD");
+	DrawExtendGraph(380, 20, 470, 42, ui_world, TRUE);
 
-	DrawFormatString(430, 40, GetColor(255, 255, 255), "1-1");
+	DrawExtendGraph(220, 43, 310, 63, ui_coin_1_score, TRUE);
 
-	DrawFormatString(260, 40, GetColor(255, 255, 255), "× 00");
+	DrawExtendGraph(90, 20, 180, 42, ui_mario_score, TRUE);
 
-	DrawFormatString(110, 20, GetColor(255, 255, 255), "MARIO");
-
-	DrawFormatString(110, 40, GetColor(255, 255, 255), "000000");
 
 	// デバッグ用枠線だったもの
 	/*DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0xff0000, false);
@@ -213,23 +218,23 @@ void InGameScene::LoadStageMapCSV()
 
 			switch (c)
 			{
-			// 床
+				// 床
 			case 'f':
 				ground_stage = 'f';
 				break;
-			// 階段ブロック
+				// 階段ブロック
 			case 'B':
 				ground_stage = 'B';
 				break;
-			// ブロック
+				// ブロック
 			case 'b':
 				ground_stage = 'b';
 				break;
-			// ？ブロック
+				// ？ブロック
 			case 'h':
 				ground_stage = 'h';
 				break;
-			//土管
+				//土管
 			case 'd':
 				ground_stage = 'd';
 				break;
@@ -242,11 +247,11 @@ void InGameScene::LoadStageMapCSV()
 			case 'K':
 				ground_stage = 'K';
 				break;
-			// クリボー
+				// クリボー
 			case 'k':
 				ground_stage = 'k';
 				break;
-			// ゴール
+				// ゴール
 			case 'P':
 				ground_stage = 'P';
 				break;
@@ -256,7 +261,7 @@ void InGameScene::LoadStageMapCSV()
 			case 'p':
 				ground_stage = 'p';
 				break;
-			//ノコノコ
+				//ノコノコ
 			case 'n':
 				ground_stage = 'n';
 				break;
@@ -286,9 +291,9 @@ void InGameScene::LoadStageMapCSV()
 	fclose(fp);
 }
 
- /*<summary>
- ステージマップ読み込み処理
- </summary>*/
+/*<summary>
+ステージマップ読み込み処理
+</summary>*/
 void InGameScene::LoadBackStageMapCSV()
 {
 	FILE* fp = NULL;
@@ -320,10 +325,10 @@ void InGameScene::LoadBackStageMapCSV()
 			break;
 		}
 		// 文字を抽出して格納
-		else if(c != ' ' && c != '\n' && c!= ',')
+		else if (c != ' ' && c != '\n' && c != ',')
 		{
 			Vector2D generate_location = (Vector2D((float)x, (float)y) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-			
+
 			switch (c)
 			{
 				//空の読み込み
@@ -350,7 +355,7 @@ void InGameScene::LoadBackStageMapCSV()
 				back_ground_stage = rm->GetImages("Resource/Images/cloud6.png", 1, 1, 1, 32, 32)[0];
 				break;
 
-			// 山の読み込み
+				// 山の読み込み
 			case 'm':
 				back_ground_stage = rm->GetImages("Resource/Images/mountain_surface.png", 1, 1, 1, 32, 32)[0];
 				break;
@@ -369,7 +374,7 @@ void InGameScene::LoadBackStageMapCSV()
 			case 'a':
 				back_ground_stage = rm->GetImages("Resource/Images/mountain_up.png", 1, 1, 1, 32, 32)[0];
 				break;
-			// 草の読み込み
+				// 草の読み込み
 			case 'G':
 				back_ground_stage = rm->GetImages("Resource/Images/ha0.png", 1, 1, 1, 32, 32)[0];
 				break;
@@ -384,7 +389,7 @@ void InGameScene::LoadBackStageMapCSV()
 			default:
 				break;
 			}
-			
+
 			// 配列に格納
 			haikei_block[x][y] = back_ground_stage;
 			x++;
@@ -402,7 +407,7 @@ void InGameScene::LoadBackStageMapCSV()
 			x = 0;
 			y++;
 		}
-		
+
 	}
 	// 開いたファイルを閉じる
 	fclose(fp);
@@ -420,7 +425,7 @@ void InGameScene::CreateStage()
 				Vector2D genelate_location = Vector2D((float)x * OBJECT_SIZE, (float)y * OBJECT_SIZE);
 				switch (block[x][y])
 				{
-				// 床
+					// 床
 				case 'f':
 					object[x][y] = gm->CreateGameObject<Ground>(genelate_location);
 					break;
