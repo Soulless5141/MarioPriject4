@@ -1,4 +1,5 @@
 #include "Kinoko.h"
+#include "DxLib.h"
 
 #define D_GRAVITY (9.807f)     //重力加速度(m/ss)
 
@@ -25,6 +26,7 @@ void Kinoko::Initialize()
 	// 当たり判定の設定
 	this->collision.is_blocking = true;
 	this->collision.object_type = eObjectType::eItem;
+	collision.box_size = 32.0f;
 	this->collision.hit_object_type.push_back(eObjectType::ePlayer);
 	this->collision.hit_object_type.push_back(eObjectType::eBlock);
 
@@ -39,10 +41,12 @@ void Kinoko::Update(float delta_second)
 void Kinoko::Draw(const Vector2D& screen_offset) const
 {
 	__super::Draw(screen_offset);
+	DrawFormatString(200, 0, 0x000000, "x座標:%f", velocity.x);
 }
 
 void Kinoko::Finalize()
 {
+	gm->DestroyGameObject(this);
 }
 
 void Kinoko::OnHitCollision(GameObject* hit_object)
@@ -50,7 +54,7 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 	Collision oc = hit_object->GetCollision();
 
 	// 当たった、オブジェクトが壁だったら
-	if (oc.object_type == eObjectType::eBlock)
+	if (oc.object_type == eObjectType::eBlock /*|| oc.object_type == eObjectType::ePlayer*/)
 	{
 		Vector2D diff;
 		Vector2D dis;
@@ -71,7 +75,6 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					location.y -= diff.y;
-					velocity.y = 0;
 				}
 			}
 			else
@@ -88,7 +91,6 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					location.y -= diff.y;
-					velocity = 0.0f;
 				}
 
 			}
@@ -124,10 +126,14 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					location.y -= diff.y;
-					velocity.y = 0;
 				}
 			}
 		}
+	}
+	// 当たったオブジェクトがプレイヤーだったら、削除する
+	if (hit_object->GetCollision().object_type == eObjectType::ePlayer)
+	{
+		Finalize();
 	}
 }
 
@@ -140,4 +146,5 @@ void Kinoko::Movement(float delta_second)
 
 	//移動の実行
 	location += velocity * ITEM_SPEED * delta_second;
+
 }

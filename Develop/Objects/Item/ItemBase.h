@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Objects/GameObject.h"
+#include "../../Objects/GameObjectManager.h"
 #include "../Character/Player/Player.h"
 
 #define ITEM_SPEED (20)
@@ -9,7 +10,12 @@ class ItemBase : public GameObject
 private:
 	Player* player;
 
+protected:
+	GameObjectManager* gm = GameObjectManager::Get();
+
 public:
+	
+
 	ItemBase();
 	virtual ~ItemBase();
 
