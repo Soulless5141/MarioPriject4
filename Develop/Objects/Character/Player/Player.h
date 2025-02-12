@@ -9,7 +9,6 @@
 // プレイヤー状態
 enum ePlayerMode
 {
-	DEKAMARIMATION,	// パワーアップしている状態状態
 	DEKAMARIO,		// でか状態
 	FAIYAMARIO,		// ファイア状態
 	MARIO,			// ちびマリオ状態
@@ -37,7 +36,7 @@ private:
 	int animation_count;					// アニメーション添字
 	float move_time;
 	const int animation_num[4] = { 1,2,3,2 };
-	int power_up_time;						// パワーアップ時間
+	float power_up_time;						// パワーアップ時間
 
 private:
 	class PlayerStateBase* state = nullptr;
@@ -98,6 +97,8 @@ private:
 	/// <param name="delta_second">1フレームあたりの時間</param>
 	void AnimationControl(float delta_second);
 
+	void PowerUpAnim(float delta_second);
+
 public:
 	/// <summary>
 	///次のStateを設定 
@@ -111,4 +112,6 @@ public:
 	Vector2D& GetLocation();
 
 	void SetReverse(bool TF);
+
+	float GetPowerUpTime();
 };
