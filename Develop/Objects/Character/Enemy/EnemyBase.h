@@ -2,12 +2,14 @@
 
 #include "../../../Objects/GameObject.h"
 
+#define ENEMY_SPEED (20)
 
 class EnemyBase : public GameObject
 {
 protected:
 	std::vector<int> animation;
 	float g_velocity;
+	Vector2D velocity = Vector2D(0.0f);
 
 public:
 	EnemyBase() = default;

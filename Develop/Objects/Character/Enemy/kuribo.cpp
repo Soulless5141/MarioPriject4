@@ -20,7 +20,7 @@ void kuribo::Initialize()
 /// <param name="delta_second">1フレーム当たりの時間</param>
 void kuribo::Update(float delta_second)
 {
-
+	Movement(delta_second);
 }
 /// <summary>
 /// 描画処理
@@ -36,7 +36,13 @@ void kuribo::Draw(const Vector2D& screen_offset) const
 /// <param name="delta_second"></param>
 void kuribo::Movement(float delta_second)
 {
+	//重力速度の計算
+	g_velocity = D_GRAVITY / 444.0f;
 
+	velocity.y += g_velocity;
+
+	//移動の実行
+	location += velocity * ENEMY_SPEED * delta_second;
 }
 /// <summary>
 /// 終了処理

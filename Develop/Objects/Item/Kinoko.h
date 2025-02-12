@@ -6,7 +6,6 @@ class Kinoko : public ItemBase
 {
 private:
 	float g_velocity = 0.0f;
-	Vector2D velocity = Vector2D(0.0f);
 
 public:
 	std::vector<int> kinoko_animation;
