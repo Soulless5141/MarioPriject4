@@ -232,7 +232,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					g_velocity = 0.0f;
-					velocity.y -= 3.0f;
+					velocity.y = -3.0f;
 				}
 			}
 			else
@@ -268,7 +268,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					g_velocity = 0.0f;
-					velocity.y -= 3.0f;
+					velocity.y = -3.0f;
 				}
 			}
 		}
