@@ -7,6 +7,9 @@ void kuribo::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	animation = rm->GetImages("Resource/Images/Enemy/kuribo.png", 3, 3, 1, 32, 32);
 	image = animation[0];
+
+	velocity = Vector2D(-4.0f, 0.0f);
+
 	collision.is_blocking = true;
 	collision.box_size = 32.0f;
 	collision.pivot = location;
@@ -49,15 +52,99 @@ void kuribo::Movement(float delta_second)
 /// </summary>
 void kuribo::Finalize()
 {
-
+	gm->DestroyGameObject(this);
 }
 /// <summary>
 /// 当たり判定処理
 /// </summary>
 /// <param name="object">当たったオブジェクト</param>
-void kuribo::OnHitCollision(GameObject* object)
+void kuribo::OnHitCollision(GameObject* hit_object)
 {
+	Collision oc = hit_object->GetCollision();
+	Vector2D diff;
+	Vector2D dis;
 
+	// 当たった、オブジェクトが壁だったら
+	if (oc.object_type == eObjectType::eBlock || oc.object_type == eObjectType::eEnemy)
+	{
+		dis = this->location - hit_object->GetLocation();
+
+		if (dis.x <= 0)
+		{
+			if (dis.y <= 0)
+			{
+				//プレイヤーの右下とオブジェクトの左上の判定
+				diff = (this->location + collision.box_size / 2) - (hit_object->GetLocation() - oc.box_size / 2);
+
+				//押し戻し
+				if (diff.x <= diff.y)
+				{
+					location.x -= diff.x;
+					velocity.x = 0.0f;
+				}
+				else
+				{
+					location.y -= diff.y;
+					velocity.y = 0;
+				}
+			}
+			else
+			{
+				//プレイヤーの右上とオブジェクトの左下の判定
+				diff = Vector2D((this->location.x + collision.box_size.x / 2), (this->location.y - collision.box_size.y / 2))
+					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
+
+				//押し戻し
+				if (diff.x > diff.y && diff.x != 0.0f)
+				{
+					location.x -= diff.x;
+					velocity.x = 0.0f;
+				}
+				else
+				{
+					location.y -= diff.y;
+					velocity = 0.0f;
+				}
+
+			}
+		}
+		else
+		{
+			if (dis.y >= 0)
+			{
+				//プレイヤーの左上とオブジェクトの右下の判定
+				diff = (this->location - collision.box_size / 2) - (hit_object->GetLocation() + oc.box_size / 2);
+
+				//押し戻し
+				if (-diff.x < -diff.y || dis.y == 0)
+				{
+					location.x -= diff.x;
+				}
+				else
+				{
+					location.y -= diff.y;
+					velocity = 0.0f;
+				}
+			}
+			else
+			{
+				//プレイヤーの左下とオブジェクトの右上の判定
+				diff = Vector2D((this->location.x - collision.box_size.x / 2), (this->location.y + collision.box_size.y / 2))
+					- Vector2D((hit_object->GetLocation().x + oc.box_size.x / 2), (hit_object->GetLocation().y - oc.box_size.y / 2));
+
+				//押し戻し
+				if (-diff.x < diff.y)
+				{
+					location.x -= diff.x;
+				}
+				else
+				{
+					location.y -= diff.y;
+					velocity.y = 0;
+				}
+			}
+		}
+	}
 }
 /// <summary>
 /// アニメーション制御

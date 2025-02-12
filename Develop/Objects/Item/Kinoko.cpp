@@ -21,7 +21,8 @@ void Kinoko::Initialize()
 
 	image = kinoko_animation[0];
 	g_velocity = 0;
-	velocity = Vector2D(5.0);
+	velocity = Vector2D(5.0f, 0.0f);
+
 
 	// “–‚½‚è”»’è‚ÌÝ’è
 	this->collision.is_blocking = true;

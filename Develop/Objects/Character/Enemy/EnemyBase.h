@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../../Objects/GameObject.h"
+#include "../../../Objects/GameObjectManager.h"
 
 #define ENEMY_SPEED (20)
 
@@ -10,6 +11,8 @@ protected:
 	std::vector<int> animation;
 	float g_velocity;
 	Vector2D velocity = Vector2D(0.0f);
+
+	GameObjectManager* gm = GameObjectManager::Get();
 
 public:
 	EnemyBase() = default;
