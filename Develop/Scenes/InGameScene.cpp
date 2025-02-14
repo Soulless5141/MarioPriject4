@@ -214,8 +214,8 @@ void InGameScene::CheckCollision(GameObject* target, GameObject* partner)
 		Vector2D col_size = (tc.box_size + pc.box_size) / 2;
 		if (fabsf(distance.x) <= col_size.x && fabsf(distance.y) <= col_size.y)
 		{
-			target->OnHitCollision(partner);
 			partner->OnHitCollision(target);
+			target->OnHitCollision(partner);
 		}
 		//if (IsCheckCollision(tc, pc))
 		//{

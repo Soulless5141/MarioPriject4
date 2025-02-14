@@ -153,15 +153,46 @@ void kuribo::OnHitCollision(GameObject* hit_object)
 		}
 	}
 
-	/*if (collision.object_type == eObjectType::eEnemy)
-	{
+	// 当たった、オブジェクトがプレイヤーだったら
 		if (oc.object_type == eObjectType::ePlayer)
 		{
-			die = true;
-			animation_count = 0;
-			this->collision.object_type = eObjectType::eNone;
+				dis = this->location - hit_object->GetLocation();
+
+				if (dis.x <= 0)
+				{
+					if (dis.y > 0)
+					{
+						//敵の右上とオブジェクトの左下の判定
+						diff = Vector2D((this->location.x + collision.box_size.x / 2), (this->location.y - collision.box_size.y / 2))
+							- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
+
+						//押し戻し
+						if (diff.x <= diff.y)
+						{
+							die = true;
+							animation_count = 0;
+							this->collision.object_type = eObjectType::eNone;
+						}
+					}
+				}
+				else
+				{
+					if (dis.y >= 0)
+					{
+						//敵の左上とオブジェクトの右下の判定
+						diff = (this->location - collision.box_size / 2) - (hit_object->GetLocation() + oc.box_size / 2);
+
+						//押し戻し
+						if (-diff.x >= -diff.y)
+						{
+							die = true;
+							animation_count = 0;
+							this->collision.object_type = eObjectType::eNone;
+						}
+					}
+				}
+
 		}
-	}*/
 }
 
 /// <summary>
