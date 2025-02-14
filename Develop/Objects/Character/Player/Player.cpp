@@ -110,6 +110,7 @@ void Player::Draw(const Vector2D& screen_offset) const
 {
 	// 親クラスの描画処理を呼び出す
 	__super::Draw(screen_offset);
+	DrawFormatString(100, 100, 0x000000, "%f", damage_time);
 }
 
 // 終了処理
@@ -216,7 +217,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 		}
 	}
 
-	// 当たった、オブジェクトが壁だったら
+	// 当たった、オブジェクトが敵だったら
 	if (oc.object_type == eObjectType::eEnemy)
 	{
 		dis = this->location - hit_object->GetLocation();
@@ -235,13 +236,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 					{
 						if (player_mode == ePlayerMode::DEKAMARIO)
 						{
-							power_down_time = 0.5f;
 							collision.box_size.y = 32.0f;
 						}
+						power_down_time = 0.5f;
 						player_state = ePlayerState::eDamage;
-					}
-					damage_time = 3.0f;
-					
+						damage_time = 1.0f;
+					}					
 				}
 				else
 				{
@@ -255,12 +255,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 				{
 					if (player_mode == ePlayerMode::DEKAMARIO)
 					{
-						power_down_time = 0.5f;
 						collision.box_size.y = 32.0f;
 					}
+					power_down_time = 0.5f;
 					player_state = ePlayerState::eDamage;
+					damage_time = 1.0f;
 				}
-				damage_time = 3.0f;
 			}
 		}
 		else
@@ -271,12 +271,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 				{
 					if (player_mode == ePlayerMode::DEKAMARIO)
 					{
-						power_down_time = 0.5f;
 						collision.box_size.y = 32.0f;
 					}
+					power_down_time = 0.5f;
 					player_state = ePlayerState::eDamage;
+					damage_time = 1.0f;
 				}
-				damage_time = 3.0f;
 			}
 			else
 			{
@@ -291,13 +291,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 					{
 						if (player_mode == ePlayerMode::DEKAMARIO)
 						{
-							power_down_time = 0.5f;
 							collision.box_size.y = 32.0f;
 						}
+						power_down_time = 0.5f;
 						player_state = ePlayerState::eDamage;
+						damage_time = 1.0f;
 					}
-					damage_time = 3.0f;
-	
 				}
 				else
 				{
@@ -504,6 +503,7 @@ void Player::AnimationControl(float delta_second)
 		case FAIYAMARIO:
 			break;
 		case MARIO:
+			power_down_time -= delta_second;
 			image = mario_animation[6];
 			break;
 		case STARMARIO:
@@ -604,4 +604,9 @@ void Player::SetReverse(bool TF)
 float Player::GetPowerUpTime()
 {
 	return this->power_up_time;
+}
+
+float Player::GetPowerDownTime()
+{
+	return this->power_down_time;
 }

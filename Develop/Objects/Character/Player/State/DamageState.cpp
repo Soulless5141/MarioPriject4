@@ -121,7 +121,7 @@ void DamageState::Update()
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eJump);
 	}
-	if (player->damage_time <= 0.5f)
+	if (player->GetPowerDownTime() <= 0.0f)
 	{
 		player->SetNextState(ePlayerState::eIdle);
 	}

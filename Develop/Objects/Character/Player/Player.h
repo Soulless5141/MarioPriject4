@@ -125,4 +125,6 @@ public:
 	void SetReverse(bool TF);
 
 	float GetPowerUpTime();
+
+	float GetPowerDownTime();
 };
