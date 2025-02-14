@@ -4,12 +4,11 @@
 #include "../Enemy/EnemyBase.h"
 #include "State/Enum/PlayerState.h"
 
-#define FRICTION (3.612)		//摩擦力
+#define FRICTION (4.824)		//摩擦力
 
 // プレイヤー状態
 enum ePlayerMode
 {
-	DEKAMARIMATION,	// パワーアップしている状態状態
 	DEKAMARIO,		// でか状態
 	FAIYAMARIO,		// ファイア状態
 	MARIO,			// ちびマリオ状態
@@ -37,7 +36,8 @@ private:
 	int animation_count;					// アニメーション添字
 	float move_time;
 	const int animation_num[4] = { 1,2,3,2 };
-	int power_up_time;						// パワーアップ時間
+	float power_up_time;						// パワーアップ時間
+	float power_down_time;						//powerダウン時間
 
 private:
 	class PlayerStateBase* state = nullptr;
@@ -98,6 +98,18 @@ private:
 	/// <param name="delta_second">1フレームあたりの時間</param>
 	void AnimationControl(float delta_second);
 
+	/// <summary>
+	/// パワーアップ時のアニメーション制御
+	/// </summary>
+	/// <param name="delta_second"></param>
+	void PowerUpAnim(float delta_second);
+
+	/// <summary>
+	/// powerダウン時のアニメーション制御
+	/// </summary>
+	/// <param name="delta_second"></param>
+	void PowerDownAnim(float delta_second);
+
 public:
 	/// <summary>
 	///次のStateを設定 
@@ -111,4 +123,8 @@ public:
 	Vector2D& GetLocation();
 
 	void SetReverse(bool TF);
+
+	float GetPowerUpTime();
+
+	float GetPowerDownTime();
 };

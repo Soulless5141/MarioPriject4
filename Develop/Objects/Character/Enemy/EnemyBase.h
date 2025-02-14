@@ -1,13 +1,22 @@
 #pragma once
 
 #include "../../../Objects/GameObject.h"
+#include "../../../Objects/GameObjectManager.h"
 
+#define ENEMY_SPEED (15)
 
 class EnemyBase : public GameObject
 {
 protected:
 	std::vector<int> animation;
+	float animation_time = 0;					// アニメーション時間
+	int animation_count = 0;					// アニメーション添字
 	float g_velocity;
+	Vector2D velocity = Vector2D(0.0f);
+
+	bool die = false;
+
+	GameObjectManager* gm = GameObjectManager::Get();
 
 public:
 	EnemyBase() = default;

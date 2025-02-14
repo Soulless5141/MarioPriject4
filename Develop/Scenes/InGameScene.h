@@ -15,6 +15,7 @@ private:
 	int ground_stage;		// 背景画像
 	int back_bgm;		// 背景画像
 	bool pause_flag;			// 一時停止フラグ
+	bool player_powerup_flag;
 
 	int ui_time;                // 画面右上の制限時間描画（TIME）400スタートで減っていく
 	int ui_world;               // 画面右上の制限時間の左側にある現在マップの描画（WORLD 1-1）

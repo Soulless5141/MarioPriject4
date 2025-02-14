@@ -13,6 +13,7 @@
 #include "../Objects/Block/Ground.h"
 #include "../Objects/Block/Hatena.h"
 #include "../Objects/Block/Stairs.h"
+#include "../Objects/Item/Kinoko.h"
 #include "DxLib.h"
 #include <fstream>
 
@@ -22,6 +23,7 @@ InGameScene::InGameScene()
 	, ground_stage(NULL)
 	, back_bgm(NULL)
 	, pause_flag(false)
+	, player_powerup_flag(false)
 {
 
 }
@@ -60,6 +62,8 @@ void InGameScene::Initialize()
 
 	player = gm->CreateGameObject<Player>(Vector2D(100, 384));
 
+	gm->CreateGameObject<Kinoko>(Vector2D(200, 250));
+
 	// マップデータ読み込み生成処理
 	LoadBackStageMapCSV();
 	LoadStageMapCSV();
@@ -67,7 +71,7 @@ void InGameScene::Initialize()
 	// BGMの読み込み
 	back_bgm = rm->GetSounds("Resource/Sounds/BGM_MarioGround.wav");
 
-	//PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
+	PlaySoundMem(back_bgm, DX_PLAYTYPE_BACK);
 	__super::Initialize();
 }
 
@@ -81,7 +85,21 @@ eSceneType InGameScene::Update(const float& delta_second)
 		pause_flag = !pause_flag;
 	}
 
-	if (!pause_flag)
+	if (input->GetKeyDown(KEY_INPUT_P) || input->GetButtonDown(XINPUT_BUTTON_START))
+	{
+		pause_flag = !pause_flag;
+	}
+
+	if (player->GetPowerUpTime() > 0)
+	{
+		player_powerup_flag = !player_powerup_flag;
+	}
+	else
+	{
+		player_powerup_flag = false;
+	}
+
+	if (!pause_flag || !player_powerup_flag)
 	{
 		CreateStage();
 		// 親クラスの更新処理を呼び出す

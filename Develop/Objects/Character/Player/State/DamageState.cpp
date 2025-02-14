@@ -27,10 +27,6 @@ DamageState::~DamageState()
 /// </summary>
 void DamageState::Initialize()
 {
-	if (player->damage_time == 0)
-	{
-		player->damage_time = 1.0f;
-	}
 	//Box‚ÌƒTƒCƒY‚ðÝ’è‚·‚é
 	player->box_size = Vector2D(32.0f);
 
@@ -125,7 +121,7 @@ void DamageState::Update()
 		//ˆÚ“®ó‘Ô‚É‘JˆÚ
 		player->SetNextState(ePlayerState::eJump);
 	}
-	if (player->damage_time <= 0.5f)
+	if (player->GetPowerDownTime() <= 0.0f)
 	{
 		player->SetNextState(ePlayerState::eIdle);
 	}

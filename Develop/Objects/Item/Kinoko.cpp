@@ -21,7 +21,8 @@ void Kinoko::Initialize()
 
 	image = kinoko_animation[0];
 	g_velocity = 0;
-	velocity = Vector2D(5.0);
+	velocity = Vector2D(5.0f, 0.0f);
+
 
 	// 当たり判定の設定
 	this->collision.is_blocking = true;
@@ -41,7 +42,6 @@ void Kinoko::Update(float delta_second)
 void Kinoko::Draw(const Vector2D& screen_offset) const
 {
 	__super::Draw(screen_offset);
-	DrawFormatString(200, 0, 0x000000, "x座標:%f", velocity.x);
 }
 
 void Kinoko::Finalize()
@@ -52,12 +52,12 @@ void Kinoko::Finalize()
 void Kinoko::OnHitCollision(GameObject* hit_object)
 {
 	Collision oc = hit_object->GetCollision();
+	Vector2D diff;
+	Vector2D dis;
 
 	// 当たった、オブジェクトが壁だったら
-	if (oc.object_type == eObjectType::eBlock /*|| oc.object_type == eObjectType::ePlayer*/)
+	if (oc.object_type == eObjectType::eBlock)
 	{
-		Vector2D diff;
-		Vector2D dis;
 		dis = this->location - hit_object->GetLocation();
 
 		if (dis.x <= 0)
@@ -71,10 +71,12 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 				if (diff.x <= diff.y)
 				{
 					location.x -= diff.x;
+					velocity.x *= -1;
 				}
 				else
 				{
 					location.y -= diff.y;
+					velocity.y = 0;
 				}
 			}
 			else
@@ -84,13 +86,15 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
 
 				//押し戻し
-				if (diff.x < diff.y)
+				if (diff.x > diff.y && diff.x != 0.0f)
 				{
 					location.x -= diff.x;
+					velocity.x *= -1;
 				}
 				else
 				{
 					location.y -= diff.y;
+					velocity = 0.0f;
 				}
 
 			}
@@ -110,6 +114,7 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					location.y -= diff.y;
+					velocity = 0.0f;
 				}
 			}
 			else
@@ -126,6 +131,7 @@ void Kinoko::OnHitCollision(GameObject* hit_object)
 				else
 				{
 					location.y -= diff.y;
+					velocity.y = 0;
 				}
 			}
 		}

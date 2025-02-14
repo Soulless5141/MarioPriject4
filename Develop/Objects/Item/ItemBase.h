@@ -13,6 +13,8 @@ private:
 protected:
 	GameObjectManager* gm = GameObjectManager::Get();
 
+	Vector2D velocity = Vector2D(0.0f);
+
 public:
 	
 
