@@ -110,7 +110,6 @@ void Player::Draw(const Vector2D& screen_offset) const
 {
 	// 親クラスの描画処理を呼び出す
 	__super::Draw(screen_offset);
-	DrawFormatString(100, 100, 0x000000, "%f", damage_time);
 }
 
 // 終了処理
