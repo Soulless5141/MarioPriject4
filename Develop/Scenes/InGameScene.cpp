@@ -48,11 +48,13 @@ void InGameScene::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	GameObjectManager* gm = GameObjectManager::Get();
 
+	ui_num = rm->GetImages("Resource/Images/UI/num.png", 15, 15, 1, 16, 16);
+
 	ui_time = rm->GetImages("Resource/Images/UI/time.png")[0];
 
 	ui_world = rm->GetImages("Resource/Images/UI/world.png")[0];
 
-	ui_coin_1_score = rm->GetImages("Resource/Images/UI/uicoin_1.png")[0];
+	ui_coin_1_score = rm->GetImages("Resource/Images/UI/uicoin_1.png", 4, 4, 1, 16, 16);
 
 	ui_mario_score = rm->GetImages("Resource/Images/UI/name_mario.png")[0];
 
@@ -109,7 +111,7 @@ void InGameScene::Draw()
 
 	DrawExtendGraph(380, 20, 470, 42, ui_world, TRUE);
 
-	DrawExtendGraph(220, 43, 310, 63, ui_coin_1_score, TRUE);
+	DrawExtendGraph(220, 43, 250, 63, __super::CoinAnimation(0), TRUE);
 
 	DrawExtendGraph(90, 20, 180, 42, ui_mario_score, TRUE);
 
@@ -124,6 +126,8 @@ void InGameScene::Draw()
 	// UIånÇÃï`âÊèàóù
 	if (pause_flag)
 	{
+		DrawRotaGraph(150, 60, 1.5, 0.0, ui_num[0], TRUE);
+
 		DrawString(10, 10, " P A U S E ", GetColor(255, 255, 255), TRUE);
 	}
 }

@@ -24,7 +24,7 @@ void TitleScene::Initialize()
 
 	ui_world = rm->GetImages("Resource/Images/UI/world.png")[0];
 
-	ui_coin_1_score = rm->GetImages("Resource/Images/UI/uicoin_1.png")[0];
+	ui_coin_1_score = rm->GetImages("Resource/Images/UI/uicoin_1.png", 4, 4, 1, 16, 16);
 
 	ui_mario_score = rm->GetImages("Resource/Images/UI/name_mario.png")[0];
 
@@ -59,7 +59,7 @@ void TitleScene::Draw()
 
 	DrawExtendGraph(380, 20, 470, 42, ui_world, TRUE);
 
-	DrawExtendGraph(220, 43, 310, 63, ui_coin_1_score, TRUE);
+	DrawExtendGraph(220, 43, 250, 63, ui_coin_1_score[0], TRUE);
 
 	DrawExtendGraph(90, 20, 180, 42, ui_mario_score, TRUE);
 
@@ -83,3 +83,4 @@ const eSceneType TitleScene::GetNowSceneType() const
 {
 	return eSceneType::title;
 }
+

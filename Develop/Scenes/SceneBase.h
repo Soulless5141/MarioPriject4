@@ -26,10 +26,18 @@ public:
 	Vector2D	screen_offset;	// スクリーンオフセット
 	std::vector<GameObject*> game_objects_list;
 	Collision object_col;
+	float animation_time;					// アニメーション時間
+	int animation_count;					// アニメーション添字
+	int image;
+	std::vector<int> coin_animation;
+	std::vector<int> animation_num = {0, 1, 2, 3, 2, 1};
 
 public:
 	SceneBase() :
 		screen_offset(0.0f)
+		, animation_time(0.0f)   // floatで初期化
+		, animation_count(0)     // intで初期化
+		, image (NULL)
 	{
 
 	}
@@ -46,6 +54,9 @@ public:
 	virtual void Initialize()
 	{
 		screen_offset.y = 16.0f;
+		ResourceManager* rm = ResourceManager::Get();
+		coin_animation = rm->GetImages("Resource/Images/UI/uicoin_1.png", 4, 4, 1, 16, 16);
+		image = coin_animation[0];
 	}
 
 	/// <summary>
@@ -89,6 +100,7 @@ public:
 			}
 		}
 
+		//CoinAnimation(delta_second);
 		// 現在のシーン情報を返却する
 		return GetNowSceneType();
 	}
@@ -140,4 +152,23 @@ public:
 	{
 		return screen_offset;
 	}
+
+	int CoinAnimation(float delta_second)
+	{
+		// 移動中のアニメーション
+		animation_time += delta_second;
+		if (animation_time >= (1.0f / 16.0f))
+		{
+			animation_time = 0.0f;
+			animation_count++;
+			if (animation_count >= coin_animation.size())
+			{
+				animation_count = 0;
+			}
+			// 画像の設定
+			return image = coin_animation[animation_num[animation_count]];
+
+		}
+	}
 };
+

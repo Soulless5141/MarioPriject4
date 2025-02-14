@@ -18,12 +18,14 @@ private:
 
 	int ui_time;                // 画面右上の制限時間描画（TIME）400スタートで減っていく
 	int ui_world;               // 画面右上の制限時間の左側にある現在マップの描画（WORLD 1-1）
-	int ui_coin_1_score;          // 画面左上のマリオスコアの右側にある獲得したコイン枚数の描画（ × 00）
+	//int ui_coin_1_score;          // 画面左上のマリオスコアの右側にある獲得したコイン枚数の描画（ × 00）
 	int ui_mario_score;         // 画面左上のマリオスコアの描画（MARIO 000000）
+	std::vector<int>ui_coin_1_score;          // 画面左上のマリオスコアの右側にある獲得したコイン枚数の描画（ × 00）
 
 	std::vector<std::vector<int>>haikei_block;
 	std::vector<std::vector<int>>block;
 	std::vector<std::vector<GameObject*>>object;
+	std::vector<int>ui_num;
 
 	//// 背景画像の読み込み
 	//ResourceManager* rm = ResourceManager::GetInstance();
