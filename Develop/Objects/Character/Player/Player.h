@@ -36,7 +36,8 @@ private:
 	int animation_count;					// アニメーション添字
 	float move_time;
 	const int animation_num[4] = { 1,2,3,2 };
-	float power_upanddown_time;						// パワーアップ時間
+	float power_up_time;						// パワーアップ時間
+	float power_down_time;						//powerダウン時間
 
 private:
 	class PlayerStateBase* state = nullptr;

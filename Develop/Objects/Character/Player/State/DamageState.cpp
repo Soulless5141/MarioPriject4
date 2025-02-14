@@ -27,10 +27,6 @@ DamageState::~DamageState()
 /// </summary>
 void DamageState::Initialize()
 {
-	if (player->damage_time == 0)
-	{
-		player->damage_time = 1.0f;
-	}
 	//Box‚ÌƒTƒCƒY‚ðÝ’è‚·‚é
 	player->box_size = Vector2D(32.0f);
 

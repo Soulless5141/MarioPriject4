@@ -60,7 +60,7 @@ void InGameScene::Initialize()
 
 	player = gm->CreateGameObject<Player>(Vector2D(100, 384));
 
-	//gm->CreateGameObject<Kinoko>(Vector2D(200, 250));
+	gm->CreateGameObject<Kinoko>(Vector2D(200, 250));
 
 	// マップデータ読み込み生成処理
 	LoadBackStageMapCSV();

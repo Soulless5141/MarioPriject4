@@ -21,9 +21,13 @@ Player::Player() :
 	player_state(ePlayerState::eIdle),
 	animation_time(0.0f),
 	animation_count(0),
-	power_upanddown_time(0),
+	power_up_time(0),
 	enemy(NULL),
-	move_time(0)
+	move_time(0),
+	damage_time(0.0f),
+	is_fly(false),
+	player_mode(ePlayerMode::MARIO),
+	sound()
 {
 
 }
@@ -71,7 +75,7 @@ void Player::Initialize()
 
 void Player::Update(float delta_second)
 {
-	if (power_upanddown_time <= 0.0f)
+	if (power_up_time <= 0.0f && power_down_time <= 0.0f)
 	{
 		//移動処理
 		Movement(delta_second);
@@ -85,11 +89,19 @@ void Player::Update(float delta_second)
 			damage_time = 0.0f;
 		}
 
-		power_upanddown_time = 0.0f;
+		power_up_time = 0.0f;
 	}
 	else
 	{
-		PowerUpAnim(delta_second);
+		if (power_up_time > 0.0f)
+		{
+			PowerUpAnim(delta_second);
+		}
+		else if (power_down_time > 0.0f)
+		{
+			//状態別の描画処理を行う
+			AnimationControl(delta_second);
+		}
 	}
 
 }
@@ -152,7 +164,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
 
 				//押し戻し
-				if (diff.x > diff.y)
+				if (diff.x > diff.y && dis.y <= box_size.y / 2)
 				{
 					location.x -= diff.x;
 					velocity.x = 0.0f;
@@ -219,15 +231,17 @@ void Player::OnHitCollision(GameObject* hit_object)
 				//押し戻し
 				if (diff.x <= diff.y)
 				{
-					if (player_mode != ePlayerMode::MARIO)
+					if (damage_time <= 0.0f)
 					{
-
+						if (player_mode == ePlayerMode::DEKAMARIO)
+						{
+							power_down_time = 0.5f;
+							damage_time = 0.5f;
+							collision.box_size.y = 32.0f;
+						}
 					}
-					else
-					{
-						player_state = ePlayerState::eDamage;
-					}
-
+					damage_time = 1.0f;
+					player_state = ePlayerState::eDamage;
 				}
 				else
 				{
@@ -237,21 +251,33 @@ void Player::OnHitCollision(GameObject* hit_object)
 			}
 			else
 			{
-				//プレイヤーの右上とオブジェクトの左下の判定
-				diff = Vector2D((this->location.x + collision.box_size.x / 2), (this->location.y - collision.box_size.y / 2))
-					- Vector2D((hit_object->GetLocation().x - oc.box_size.x / 2), (hit_object->GetLocation().y + oc.box_size.y / 2));
-
+				if (damage_time <= 0.0f)
+				{
+					if (player_mode == ePlayerMode::DEKAMARIO)
+					{
+						power_down_time = 0.5f;
+						damage_time = 0.5f;
+						collision.box_size.y = 32.0f;
+					}
+				}
+				damage_time = 1.0f;
 				player_state = ePlayerState::eDamage;
-
 			}
 		}
 		else
 		{
 			if (dis.y >= 0)
 			{
-				//プレイヤーの左上とオブジェクトの右下の判定
-				diff = (this->location - collision.box_size / 2) - (hit_object->GetLocation() + oc.box_size / 2);
-
+				if (damage_time <= 0.0f)
+				{
+					if (player_mode == ePlayerMode::DEKAMARIO)
+					{
+						power_down_time = 0.5f;
+						damage_time = 0.5f;
+						collision.box_size.y = 32.0f;
+					}
+				}
+				damage_time = 1.0f;
 				player_state = ePlayerState::eDamage;
 			}
 			else
@@ -263,6 +289,15 @@ void Player::OnHitCollision(GameObject* hit_object)
 				//押し戻し
 				if (-diff.x < diff.y)
 				{
+					if (damage_time <= 0.0f)
+					{
+						if (player_mode == ePlayerMode::DEKAMARIO)
+						{
+							power_down_time = 0.5f;
+							collision.box_size.y = 32.0f;
+						}
+					}
+					damage_time = 1.0f;
 					player_state = ePlayerState::eDamage;
 				}
 				else
@@ -282,7 +317,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 			collision.box_size.y = 64.0f;
 			player_mode = ePlayerMode::DEKAMARIO;
 
-			power_upanddown_time = 0.5f;
+			power_up_time = 0.5f;
 		}
 	}
 }
@@ -458,7 +493,28 @@ void Player::AnimationControl(float delta_second)
 		}
 		break;
 	case ePlayerState::eDamage:
-		image = mario_animation[6];
+		switch (player_mode)
+		{
+		case DEKAMARIO:
+			PowerDownAnim(delta_second);
+			if (power_down_time <= 0.0f)
+			{
+				player_mode = ePlayerMode::MARIO;
+			}
+			break;
+		case FAIYAMARIO:
+			break;
+		case MARIO:
+			image = mario_animation[6];
+			break;
+		case STARMARIO:
+			break;
+		case STARSMALLMARIO:
+			break;
+		default:
+			break;
+		}
+	
 		break;
 	case ePlayerState::eGoal:
 		break;
@@ -492,21 +548,37 @@ void Player::AnimationControl(float delta_second)
 
 void Player::PowerUpAnim(float delta_second)
 {
-	power_upanddown_time -= delta_second;
+	power_up_time -= delta_second;
 	animation_time += delta_second;
-	if (animation_time >= (1.0f / 32.0f))
+	if (animation_time >= (1.0f / 16.0f))
 	{
 		animation_time = 0.0f;
 		animation_count++;
-		if (animation_count >= 4)
+		if (animation_count >= 2)
 		{
 			animation_count = 0;
 		}
 		// 画像の設定
-		image = dekamarimation_animation[animation_num[animation_count] - 1];
+		image = dekamarimation_animation[animation_count];
 	}
 }
 
+void Player::PowerDownAnim(float delta_second)
+{
+	power_down_time -= delta_second;
+	animation_time += delta_second;
+	if (animation_time >= (1.0f / 16.0f))
+	{
+		animation_time = 0.0f;
+		animation_count--;
+		if (animation_count <= 0)
+		{
+			animation_count = 2;
+		}
+		// 画像の設定
+		image = dekamarimation_animation[animation_count];
+	}
+}
 
 /// <summary>
 /// 次のstateを設定
@@ -532,5 +604,5 @@ void Player::SetReverse(bool TF)
 
 float Player::GetPowerUpTime()
 {
-	return this->power_upanddown_time;
+	return this->power_up_time;
 }
