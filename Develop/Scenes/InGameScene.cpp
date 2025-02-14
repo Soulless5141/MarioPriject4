@@ -129,9 +129,35 @@ void InGameScene::Draw()
 
 	DrawExtendGraph(380, 20, 470, 42, ui_world, TRUE);
 
-	DrawExtendGraph(220, 43, 250, 63, __super::CoinAnimation(0), TRUE);
+	DrawExtendGraph(220, 40, 250, 60, ui_coin_1_score[0], TRUE);
 
 	DrawExtendGraph(90, 20, 180, 42, ui_mario_score, TRUE);
+
+	int game_time = 400;
+	// 制限時間
+	DrawRotaGraph(537, 50, 1.15, 0.0, ui_num[game_time / 100], TRUE);
+	DrawRotaGraph(554, 50, 1.15, 0.0, ui_num[game_time % 100 / 10], TRUE);
+	DrawRotaGraph(571, 50, 1.15, 0.0, ui_num[game_time % 10], TRUE);
+
+	// ステージ
+	DrawRotaGraph(406, 50, 1.15, 0.0, ui_num[1], TRUE);
+	DrawRotaGraph(425, 50, 1.15, 0.0, ui_num[10], TRUE);
+	DrawRotaGraph(443, 50, 1.15, 0.0, ui_num[1], TRUE);
+
+	int coin = 99;
+	// コインカウント
+	DrawRotaGraph(255, 50, 1.15, 0.0, ui_num[11], TRUE);
+	DrawRotaGraph(275, 50, 1.15, 0.0, ui_num[coin / 10], TRUE);
+	DrawRotaGraph(293, 50, 1.15, 0.0, ui_num[coin % 10], TRUE);
+
+	int score = 999999;
+	// UIスコア
+	DrawRotaGraph(5 * 19.8, 50, 1.15, 0.0, ui_num[score / 100000], TRUE);
+	DrawRotaGraph(6 * 19.5, 50, 1.15, 0.0, ui_num[(score % 100000) / 10000], TRUE);
+	DrawRotaGraph(7 * 19.4, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000) / 1000], TRUE);
+	DrawRotaGraph(8 * 19.2, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000) / 100], TRUE);
+	DrawRotaGraph(9 * 19.1, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000 % 100) / 10], TRUE);
+	DrawRotaGraph(10 * 18.9, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000 % 100) % 10], TRUE);
 
 
 	// デバッグ用枠線だったもの

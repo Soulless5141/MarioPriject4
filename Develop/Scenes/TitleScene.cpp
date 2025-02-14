@@ -20,6 +20,8 @@ void TitleScene::Initialize()
 	
 	back_ground_image = rm->GetImages("Resource/Images/title.png")[0];
 
+	ui_num = rm->GetImages("Resource/Images/UI/num.png", 15, 15, 1, 16, 16);
+
 	ui_time = rm->GetImages("Resource/Images/UI/time.png")[0];
 
 	ui_world = rm->GetImages("Resource/Images/UI/world.png")[0];
@@ -59,7 +61,7 @@ void TitleScene::Draw()
 
 	DrawExtendGraph(380, 20, 470, 42, ui_world, TRUE);
 
-	DrawExtendGraph(220, 43, 250, 63, ui_coin_1_score[0], TRUE);
+	DrawExtendGraph(220, 40, 250, 60, ui_coin_1_score[0], TRUE);
 
 	DrawExtendGraph(90, 20, 180, 42, ui_mario_score, TRUE);
 
@@ -70,6 +72,34 @@ void TitleScene::Draw()
 	DrawFormatString(290, 300, GetColor(255, 255, 255), "1  PLAYER  GAME");
 
 	DrawFormatString(340, 265, GetColor(255, 200, 200), "1985 NINTENDO");
+
+
+	// ステージ
+	DrawRotaGraph(406, 50, 1.15, 0.0, ui_num[1], TRUE);
+	DrawRotaGraph(425, 50, 1.15, 0.0, ui_num[10], TRUE);
+	DrawRotaGraph(443, 50, 1.15, 0.0, ui_num[1], TRUE);
+
+	int coin = 00;
+	// コインカウント
+	DrawRotaGraph(255, 50, 1.15, 0.0, ui_num[11], TRUE);
+	DrawRotaGraph(275, 50, 1.15, 0.0, ui_num[coin / 10], TRUE);
+	DrawRotaGraph(293, 50, 1.15, 0.0, ui_num[coin % 10], TRUE);
+
+	int score = 000000;
+	// UIスコア
+	DrawRotaGraph(5 * 19.8, 50, 1.15, 0.0, ui_num[score / 100000], TRUE);
+	DrawRotaGraph(6 * 19.5, 50, 1.15, 0.0, ui_num[(score % 100000) / 10000], TRUE);
+	DrawRotaGraph(7 * 19.4, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000) / 1000], TRUE);
+	DrawRotaGraph(8 * 19.2, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000) / 100], TRUE);
+	DrawRotaGraph(9 * 19.1, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000 % 100) / 10], TRUE);
+	DrawRotaGraph(10 * 18.9, 50, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000 % 100) % 10], TRUE);
+
+	DrawRotaGraph(368, 375, 1.15, 0.0, ui_num[score / 100000], TRUE);
+	DrawRotaGraph(386, 375, 1.15, 0.0, ui_num[(score % 100000) / 10000], TRUE);
+	DrawRotaGraph(404, 375, 1.15, 0.0, ui_num[(score % 100000 % 10000) / 1000], TRUE);
+	DrawRotaGraph(422, 375, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000) / 100], TRUE);
+	DrawRotaGraph(440, 375, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000 % 100) / 10], TRUE);
+	DrawRotaGraph(458, 375, 1.15, 0.0, ui_num[(score % 100000 % 10000 % 1000 % 100) % 10], TRUE);
 
 }
 

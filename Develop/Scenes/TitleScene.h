@@ -15,6 +15,7 @@ private:
 	int ui_1_player;            // 画面中央少し下のプレイヤー人数選択の描画（１ PLAYER GAME）
 	int ui_top_score;           // 画面中央下、プレイヤー人数選択の下側にあるハイスコアの描画（TOP- 000000）
 	std::vector<int>ui_coin_1_score;          // 画面左上のマリオスコアの右側にある獲得したコイン枚数の描画（ × 00）
+	std::vector<int>ui_num;
 
 public:
 	TitleScene();
