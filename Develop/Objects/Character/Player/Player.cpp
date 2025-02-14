@@ -236,12 +236,12 @@ void Player::OnHitCollision(GameObject* hit_object)
 						if (player_mode == ePlayerMode::DEKAMARIO)
 						{
 							power_down_time = 0.5f;
-							damage_time = 0.5f;
 							collision.box_size.y = 32.0f;
 						}
+						player_state = ePlayerState::eDamage;
 					}
-					damage_time = 1.0f;
-					player_state = ePlayerState::eDamage;
+					damage_time = 3.0f;
+					
 				}
 				else
 				{
@@ -256,12 +256,11 @@ void Player::OnHitCollision(GameObject* hit_object)
 					if (player_mode == ePlayerMode::DEKAMARIO)
 					{
 						power_down_time = 0.5f;
-						damage_time = 0.5f;
 						collision.box_size.y = 32.0f;
 					}
+					player_state = ePlayerState::eDamage;
 				}
-				damage_time = 1.0f;
-				player_state = ePlayerState::eDamage;
+				damage_time = 3.0f;
 			}
 		}
 		else
@@ -273,12 +272,11 @@ void Player::OnHitCollision(GameObject* hit_object)
 					if (player_mode == ePlayerMode::DEKAMARIO)
 					{
 						power_down_time = 0.5f;
-						damage_time = 0.5f;
 						collision.box_size.y = 32.0f;
 					}
+					player_state = ePlayerState::eDamage;
 				}
-				damage_time = 1.0f;
-				player_state = ePlayerState::eDamage;
+				damage_time = 3.0f;
 			}
 			else
 			{
@@ -296,9 +294,10 @@ void Player::OnHitCollision(GameObject* hit_object)
 							power_down_time = 0.5f;
 							collision.box_size.y = 32.0f;
 						}
+						player_state = ePlayerState::eDamage;
 					}
-					damage_time = 1.0f;
-					player_state = ePlayerState::eDamage;
+					damage_time = 3.0f;
+	
 				}
 				else
 				{
